@@ -6,9 +6,9 @@ name: CI
 # events but only for the master branch
 on:
   push:
-    branches: [ master1 ]
+    branches: [ master ]
   pull_request:
-    branches: [ master1 ]
+    branches: [ master ]
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -28,5 +28,7 @@ jobs:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
     - name: Install Azure Spring Cloud extension
       run: az extension add -y --name spring-cloud
+    - name: Create app
+      run: az spring-cloud app create -n api-service --runtime-version Java_11
     - name: Deploy to Azure Spring Cloud
       run: az spring-cloud app deploy --resource-group rg-spring-cloud-demo-hkb --service spring-cloud-demo-hkb --name api-service --jar-path target/demo-0.0.1-SNAPSHOT.jar

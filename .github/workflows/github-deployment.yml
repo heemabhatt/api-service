@@ -16,6 +16,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
+    - name: Generate build number
+      uses: einaregilsson/build-number@v2 
+      with:
+        token: ${{secrets.spring-cloud-workshop-hkb }}        
+    - name: Print new build number
+      run: echo "Build number is $BUILD_NUMBER"
     - name: Set up JDK 1.11
       uses: actions/setup-java@v1
       with:

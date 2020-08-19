@@ -39,8 +39,7 @@ jobs:
       run: echo 'hi'
     - name: Deploy to Azure Spring Cloud
       run: |
-          az spring-cloud app deploy 
-          --resource-group rg-spring-cloud-demo-hkb --service spring-cloud-demo-hkb --name api-service 
-          --jar-path target/demo-0.0.1-SNAPSHOT.jar --env VARIABLE_NAME=VARIABLE_VALUE 
-          VAR1=VAL1 
-          VAR2=VAL2
+          az spring-cloud app deploy --resource-group rg-spring-cloud-demo-hkb --service spring-cloud-demo-hkb --name api-service \
+          --jar-path target/demo-0.0.1-SNAPSHOT.jar --env VARIABLE_NAME=VARIABLE_VALUE \
+          VAR1=VAL1 \
+          VAR2=VAL2 \

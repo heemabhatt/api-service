@@ -36,12 +36,12 @@ jobs:
     - name: Install jq
       run: sudo apt-get update -y && sudo apt-get install -y jq
     - name: create environment variables list using jq
-      run: ENV_VAR=$(jq -r '. | to_entries[] | "\(.key)=\(.value) `"'  src/main/scripts/test_props.json)
+      run: CUSTOM_VAR=$(jq -r '. | to_entries[] | "\(.key)=\(.value) `"'  src/main/scripts/test_props.json)
     - name: Print Environment variables
-      run: echo "$ENV_VAR"
+      run: echo "$CUSTOM_VAR"
     - name: Deploy to Azure Spring Cloud
       run: |
           az spring-cloud app deploy --resource-group rg-spring-cloud-demo-hkb --service spring-cloud-demo-hkb --name api-service \
           --jar-path target/demo-0.0.1-SNAPSHOT.jar --env VARIABLE_NAME=VARIABLE_VALUE \
-          VAR1=VAL1 \
-          VAR2=VAL2 \
+          VAR5=VAL5 \
+          VAR7=VAL7 \

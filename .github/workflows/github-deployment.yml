@@ -23,12 +23,12 @@ jobs:
         java-version: 1.11
     - name: Build with Maven
       run: mvn package -DskipTests -Pcloud
-#     - name: Login to Azure Spring Cloud
-#       uses: azure/login@v1
-#       with:
-#         creds: ${{ secrets.AZURE_CREDENTIALS }}
-#     - name: Install Azure Spring Cloud extension
-#       run: az extension add -y --name spring-cloud
+    - name: Login to Azure Spring Cloud
+      uses: azure/login@v1
+      with:
+         creds: ${{ secrets.AZURE_CREDENTIALS }}
+    - name: Install Azure Spring Cloud extension
+      run: az extension add -y --name spring-cloud
 #    - name: Delete app
 #      run: az spring-cloud app delete -n api-service --resource-group rg-spring-cloud-demo-hkb --service spring-cloud-demo-hkb
 #    - name: Create app

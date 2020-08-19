@@ -1,0 +1,5 @@
+server:
+  port: 9080
+myvariables:
+  mykey: myvalue
+  myenv: LocalEnvironment

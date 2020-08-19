@@ -38,9 +38,9 @@ jobs:
     - name: create  variables list using jq
       run: ABC='hello worldd'
     - name: print
-      run: echo "$ABC"
+      run: echo $ABC
     - name: create environment variables list using jq
-      run: CUSTOM_VAR=$(jq -r '. | to_entries[] | "\(.key)=\(.value) "' src/main/scripts/test_props.json)
+      run: echo $(jq -r '. | to_entries[] | "\(.key)=\(.value) "' src/main/scripts/test_props.json)
     - name: Print Environment variables
       run: echo "$CUSTOM_VAR"
     - name: Deploy to Azure Spring Cloud

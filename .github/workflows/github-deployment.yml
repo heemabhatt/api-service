@@ -34,7 +34,7 @@ jobs:
 #    - name: Create app
 #      run: az spring-cloud app create -n api-service --runtime-version Java_11 --resource-group rg-spring-cloud-demo-hkb --service spring-cloud-demo-hkb
     - name: Install jq
-      run: apt-get update -y && apt-get install -y jq
+      run: sudo apt-get update -y && sudo apt-get install -y jq
     - name: test jq
       run: echo '{"foo":0}' | jq
 #     - name: Deploy to Azure Spring Cloud

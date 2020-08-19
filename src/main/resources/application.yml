@@ -1,5 +1,18 @@
 server:
   port: 9080
-myvariables:
-  mykey: myvalue
+mykey: mykeyvariablevalue
+spring:
+  profiles: 
+   myenv: DefaultEnvironment
+---
+spring:
+  profiles: 
+    active: Local
+---
+spring:
+  profiles: Local
   myenv: LocalEnvironment
+---
+spring:
+  profiles: Cloud
+  myenv: CloudEnvironment

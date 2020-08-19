@@ -7,14 +7,17 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class ApiController {
 
-	@Value("${myvariables.mykey}")
+	@Value("${mykey}")
 	private String mykey;
 	
-	@Value("${myvariables.myenv}")
+	@Value("${spring.myenv}")
 	private String myenv;
+	
+	// run using this command : mvn clean install spring-boot:run -Dspring-boot.run.profiles=Local -DskipTests
+	
 	@GetMapping("/")
 	public String Names()
 	{
-		return "My Key:  " + mykey +  " My Env: " + myenv;
+		return "My Key:  " + mykey +  " My Env: " + myenv   ;
 	}
 }

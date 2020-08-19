@@ -35,10 +35,6 @@ jobs:
 #      run: az spring-cloud app create -n api-service --runtime-version Java_11 --resource-group rg-spring-cloud-demo-hkb --service spring-cloud-demo-hkb
     - name: Install jq
       run: sudo apt-get update -y && sudo apt-get install -y jq
-    - name: create  variables list using jq
-      run: ABC='hello worldd'
-    - name: print
-      run: echo $ABC
     - name: create environment variables list using jq
       run: echo $(jq -r '. | to_entries[] | "\(.key)=\(.value) "' src/main/scripts/test_props.json)
     - name: Print Environment variables
@@ -46,6 +42,4 @@ jobs:
     - name: Deploy to Azure Spring Cloud
       run: |
           az spring-cloud app deploy --resource-group rg-spring-cloud-demo-hkb --service spring-cloud-demo-hkb --name api-service \
-          --jar-path target/demo-0.0.1-SNAPSHOT.jar --env VARIABLE_NAME=VARIABLE_VALUE \
-          VAR5=VAL5 \
-          VAR7=VAL7 \
+          --jar-path target/demo-0.0.1-SNAPSHOT.jar --env $(jq -r '. | to_entries[] | "\(.key)=\(.value) "' src/main/scripts/test_props.json)

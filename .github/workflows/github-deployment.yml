@@ -35,6 +35,10 @@ jobs:
 #      run: az spring-cloud app create -n api-service --runtime-version Java_11 --resource-group rg-spring-cloud-demo-hkb --service spring-cloud-demo-hkb
     - name: Install jq
       run: sudo apt-get update -y && sudo apt-get install -y jq
+    - name: create  variables list using jq
+      run: ABC='hello worldd'
+    - name: print
+      run: echo "$ABC"
     - name: create environment variables list using jq
       run: CUSTOM_VAR=$(jq -r '. | to_entries[] | "\(.key)=\(.value) "' src/main/scripts/test_props.json)
     - name: Print Environment variables

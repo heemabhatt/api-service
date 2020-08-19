@@ -30,7 +30,7 @@ jobs:
     - name: Install Azure Spring Cloud extension
       run: az extension add -y --name spring-cloud
     - name: Delete app
-      run: az spring-cloud app delete -n api-service --runtime-version Java_11 --resource-group rg-spring-cloud-demo-hkb --service spring-cloud-demo-hkb
+      run: az spring-cloud app delete -n api-service --resource-group rg-spring-cloud-demo-hkb --service spring-cloud-demo-hkb
     - name: Create app
       run: az spring-cloud app create -n api-service --runtime-version Java_11 --resource-group rg-spring-cloud-demo-hkb --service spring-cloud-demo-hkb
     - name: Deploy to Azure Spring Cloud

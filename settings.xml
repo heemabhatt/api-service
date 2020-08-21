@@ -5,7 +5,7 @@
             <name>libs-release-local</name>
             <url>http://13.72.81.81:8082/ui/admin/repositories/local</url>
             <id>libs-release</id>
-		<mirror>
+		</mirror>
 	</mirrors>
 	<profiles>
         <profile>

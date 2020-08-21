@@ -35,7 +35,11 @@ jobs:
           java-version:  1.11
       - name: Publish artifact 
         run: mvn deploy -s settings.xml
-        
+
+
+  deploy:
+    runs-on: ubuntu-latest
+    steps:          
       - name: Login to Azure Spring Cloud
         uses: azure/login@v1
         with:

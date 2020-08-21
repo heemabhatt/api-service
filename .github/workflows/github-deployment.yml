@@ -40,6 +40,6 @@ jobs:
 #    - name: Print Environment variables
 #      run: echo "$CUSTOM_VAR"
 #    - name: Deploy to Azure Spring Cloud
-      run: |
-          az spring-cloud app deploy --resource-group rg-spring-cloud-demo-hkb --service spring-cloud-demo-hkb --name api-service \
-          --jar-path target/demo-0.0.1-SNAPSHOT.jar --env $(jq -r '. | to_entries[] | "\(.key)=\(.value) "' src/main/scripts/test_props.json)
+#       run: |
+#           az spring-cloud app deploy --resource-group rg-spring-cloud-demo-hkb --service spring-cloud-demo-hkb --name api-service \
+#           --jar-path target/demo-0.0.1-SNAPSHOT.jar --env $(jq -r '. | to_entries[] | "\(.key)=\(.value) "' src/main/scripts/test_props.json)

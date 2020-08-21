@@ -29,10 +29,10 @@ jobs:
          creds: ${{ secrets.AZURE_CREDENTIALS }}
     - name: Install Azure Spring Cloud extension
       run: az extension add -y --name spring-cloud
-#    - name: Delete app
-#      run: az spring-cloud app delete -n api-service --resource-group rg-spring-cloud-demo-hkb --service spring-cloud-demo-hkb
-#    - name: Create app
-#      run: az spring-cloud app create -n api-service --runtime-version Java_11 --resource-group rg-spring-cloud-demo-hkb --service spring-cloud-demo-hkb
+    - name: Delete app
+      run: az spring-cloud app delete -n api-service --resource-group rg-spring-cloud-demo-hkb --service spring-cloud-demo-hkb
+    - name: Create app
+      run: az spring-cloud app create -n api-service --runtime-version Java_11 --resource-group rg-spring-cloud-demo-hkb --service spring-cloud-demo-hkb
     - name: Install jq
       run: sudo apt-get update -y && sudo apt-get install -y jq
     - name: create environment variables list using jq

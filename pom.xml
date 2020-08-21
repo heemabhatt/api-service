@@ -60,7 +60,22 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
-			</plugin>
+				<configuration>
+					<additionalProperties>
+					<continuousIntegration.agent>${build.agent}</continuousIntegration.agent>
+					<continuousIntegration.buildNumber>${build.number}</continuousIntegration.buildNumber>
+					</additionalProperties>
+				</configuration>
+				<executions>
+                    <execution>
+                        <id>build information</id>
+                        <goals>
+                            <goal>build-info</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+          
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-war-plugin</artifactId>

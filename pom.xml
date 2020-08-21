@@ -53,7 +53,14 @@
 						<continuousIntegration.buildNumber>heema-${build.number}</continuousIntegration.buildNumber>
 					</additionalProperties>
 				</configuration>
-
+				<executions>
+					<execution>
+						<id>build information</id>
+						<goals>
+							<goal>build-info</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 
 			<plugin>

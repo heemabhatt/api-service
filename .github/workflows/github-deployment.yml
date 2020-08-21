@@ -39,7 +39,13 @@ jobs:
 
   deploy:
     runs-on: ubuntu-latest
-    steps:          
+    steps: 
+      - uses: jfrog/setup-jfrog-cli@v1
+        env:
+          JF_ARTIFACTORY_1: ${{ secrets.JF_ARTIFACTORY_SECRET_1 }}
+      - run: |
+             # Ping the server
+              jfrog rt ping
       - name: Login to Azure Spring Cloud
         uses: azure/login@v1
         with:

@@ -1,0 +1,35 @@
+<settings>
+	<mirrors>
+		<mirror>
+		<mirrorOf>*,!artcentral,!artsnapshots</mirrorOf>
+            <name>libs-release-local</name>
+            <url>http://13.72.81.81:8082/ui/admin/repositories/local</url>
+            <id>libs-release</id>
+		<mirror>
+	</mirrors>
+	<profiles>
+        <profile>
+            <repositories>
+                <repository>
+                    <snapshots>
+                        <enabled>false</enabled>
+                    </snapshots>
+                    <id>artcentral</id>
+                    <name>libs-release</name>
+                    <url>http://13.72.81.81:8082/artifactory/libs-release/</url>
+                </repository>
+                <repository>
+                    <snapshots />
+                    <id>artsnapshots</id>
+                    <name>llibs-snapshot</name>
+                    <url>http://13.72.81.81:8082/artifactory/libs-snapshot/</url>
+                </repository>
+            </repositories>
+          
+            <id>artifactory</id>
+        </profile>
+    </profiles>
+	<activeProfiles>
+		<activeProfile>artifactory</activeProfile>
+	</activeProfiles>
+</settings>

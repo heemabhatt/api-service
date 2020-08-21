@@ -23,23 +23,23 @@ jobs:
         java-version: 1.11
     - name: Build with Maven
       run: mvn package -DskipTests -Pcloud
-    - name: Login to Azure Spring Cloud
-      uses: azure/login@v1
-      with:
-         creds: ${{ secrets.AZURE_CREDENTIALS }}
-    - name: Install Azure Spring Cloud extension
-      run: az extension add -y --name spring-cloud
-    - name: Delete app
-      run: az spring-cloud app delete -n api-service --resource-group rg-spring-cloud-demo-hkb --service spring-cloud-demo-hkb
-    - name: Create app
-      run: az spring-cloud app create -n api-service --runtime-version Java_11 --resource-group rg-spring-cloud-demo-hkb --service spring-cloud-demo-hkb
-    - name: Install jq
-      run: sudo apt-get update -y && sudo apt-get install -y jq
-    - name: create environment variables list using jq
-      run: echo $(jq -r '. | to_entries[] | "\(.key)=\(.value) "' src/main/scripts/test_props.json)
-    - name: Print Environment variables
-      run: echo "$CUSTOM_VAR"
-    - name: Deploy to Azure Spring Cloud
+#    - name: Login to Azure Spring Cloud
+#      uses: azure/login@v1
+#      with:
+#         creds: ${{ secrets.AZURE_CREDENTIALS }}
+#    - name: Install Azure Spring Cloud extension
+#      run: az extension add -y --name spring-cloud
+#    - name: Delete app
+#      run: az spring-cloud app delete -n api-service --resource-group rg-spring-cloud-demo-hkb --service spring-cloud-demo-hkb
+#    - name: Create app
+#      run: az spring-cloud app create -n api-service --runtime-version Java_11 --resource-group rg-spring-cloud-demo-hkb --service spring-cloud-demo-hkb
+#    - name: Install jq
+#      run: sudo apt-get update -y && sudo apt-get install -y jq
+#    - name: create environment variables list using jq
+#      run: echo $(jq -r '. | to_entries[] | "\(.key)=\(.value) "' src/main/scripts/test_props.json)
+#    - name: Print Environment variables
+#      run: echo "$CUSTOM_VAR"
+#    - name: Deploy to Azure Spring Cloud
       run: |
           az spring-cloud app deploy --resource-group rg-spring-cloud-demo-hkb --service spring-cloud-demo-hkb --name api-service \
           --jar-path target/demo-0.0.1-SNAPSHOT.jar --env $(jq -r '. | to_entries[] | "\(.key)=\(.value) "' src/main/scripts/test_props.json)

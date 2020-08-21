@@ -49,8 +49,8 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
 					<additionalProperties>
-						<continuousIntegration.agent>${build.agent}</continuousIntegration.agent>
-						<continuousIntegration.buildNumber>${build.number}</continuousIntegration.buildNumber>
+						<continuousIntegration.agent>nihar-${build.agent}</continuousIntegration.agent>
+						<continuousIntegration.buildNumber>heema-${build.number}</continuousIntegration.buildNumber>
 					</additionalProperties>
 				</configuration>
 

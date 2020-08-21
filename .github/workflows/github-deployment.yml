@@ -22,7 +22,7 @@ jobs:
       with:
         java-version: 1.11
     - name: Build with Maven
-      run: mvn package -DskipTests -Pcloud
+      run: mvn package -DskipTests -Pcloud -s settings.xml
   artifact:
     name: Publish - GitHub Packages
     runs-on: ubuntu-18.04
@@ -34,7 +34,7 @@ jobs:
         with:
           java-version: 11.0.4
       - name: Publish artifact on GitHub Packages
-        run: mvn -B clean deploy -DskipTests
+        run: mvn -B clean deploy -DskipTests -s settngs.xml
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 #    - name: Login to Azure Spring Cloud

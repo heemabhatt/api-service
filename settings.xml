@@ -1,35 +1,18 @@
-<settings>
-	<mirrors>
-		<mirror>
-		<mirrorOf>*,!artcentral,!artsnapshots</mirrorOf>
-            <name>libs-release-local</name>
-            <url>http://13.72.81.81:8082/ui/admin/repositories/local</url>
-            <id>libs-release</id>
-		</mirror>
-	</mirrors>
-	<profiles>
-        <profile>
-            <repositories>
-                <repository>
-                    <snapshots>
-                        <enabled>false</enabled>
-                    </snapshots>
-                    <id>artcentral</id>
-                    <name>libs-release</name>
-                    <url>http://13.72.81.81:8082/artifactory/libs-release/</url>
-                </repository>
-                <repository>
-                    <snapshots />
-                    <id>artsnapshots</id>
-                    <name>llibs-snapshot</name>
-                    <url>http://13.72.81.81:8082/artifactory/libs-snapshot/</url>
-                </repository>
-            </repositories>
-          
-            <id>artifactory</id>
-        </profile>
-    </profiles>
-	<activeProfiles>
-		<activeProfile>artifactory</activeProfile>
-	</activeProfiles>
+<?xml version="1.0" encoding="UTF-8"?>
+<settings
+	xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.1.0 http://maven.apache.org/xsd/settings-1.1.0.xsd"
+	xmlns="http://maven.apache.org/SETTINGS/1.1.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<servers>
+		<server>
+			<id>central</id>
+			<username>mathlibuser</username>
+			<password>Police12345678</password>
+		</server>
+		<server>
+			<id>snapshots</id>
+			<username>mathlibuser</username>
+			<password>Police12345678</password>
+		</server>
+	</servers>
 </settings>

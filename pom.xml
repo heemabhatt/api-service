@@ -6,7 +6,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.2.5.RELEASE</version>
+		<version>2.0.4.RELEASE</version>
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.example</groupId>
@@ -25,22 +25,9 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
-		<!-- <dependency>
-			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
-		</dependency> -->
-
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-test</artifactId>
-			<scope>test</scope>
-			<exclusions>
-				<exclusion>
-					<groupId>org.junit.vintage</groupId>
-					<artifactId>junit-vintage-engine</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
+		<!-- <dependency> <groupId>org.springframework.cloud</groupId> <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId> 
+			</dependency> -->
+ 
 	</dependencies>
 
 	<dependencyManagement>
@@ -62,25 +49,29 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
 					<additionalProperties>
-					<continuousIntegration.agent>${build.agent}</continuousIntegration.agent>
-					<continuousIntegration.buildNumber>${build.number}</continuousIntegration.buildNumber>
+						<continuousIntegration.agent>${build.agent}</continuousIntegration.agent>
+						<continuousIntegration.buildNumber>${build.number}</continuousIntegration.buildNumber>
 					</additionalProperties>
 				</configuration>
-				<executions>
-                    <execution>
-                        <id>build information</id>
-                        <goals>
-                            <goal>build-info</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-          
+
+			</plugin>
+
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-war-plugin</artifactId>
-				</plugin>
+			</plugin>
 		</plugins>
 	</build>
-
+	<distributionManagement>
+		<repository>
+			<id>central</id>
+			<name>vmhkbdemo-releases</name>
+			<url>http://13.72.81.81:8081/artifactory/repositorykey</url>
+		</repository>
+		<snapshotRepository>
+			<id>snapshots</id>
+			<name>vmhkbdemo-snapshots</name>
+			<url>http://13.72.81.81:8081/artifactory/repositorykey</url>
+		</snapshotRepository>
+	</distributionManagement>
 </project>

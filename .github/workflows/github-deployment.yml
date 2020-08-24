@@ -31,10 +31,10 @@ jobs:
     - name: Publish artifact 
       run: mvn deploy -s settings.xml
  
-    - name: Create deploy director
-      run: mkdir deploydir && curl -u admin:AKCp5fUhvYKnyBkh7xken3P5yM3H4k9W9vte6yRoVKJExqkiDDTPU7p3myib7w53y45fvZr3X http://69.250.67.37:8082/artifactory/hkbrepository/com/example/demo/${{ steps.buildnumber.outputs.build_number }}/demo-${{ steps.buildnumber.outputs.build_number }}.jar -o ./deploydir/demo-${{ steps.buildnumber.outputs.build_number }}.jar  
-    - name: Check if download successful
-      run:  if [ -f "./deploydir/demo-${{ steps.buildnumber.outputs.build_number }}.jar" ]; then echo "File downloaded"; fi
+#     - name: Create deploy director
+#       run: mkdir deploydir && curl -u admin:AKCp5fUhvYKnyBkh7xken3P5yM3H4k9W9vte6yRoVKJExqkiDDTPU7p3myib7w53y45fvZr3X http://69.250.67.37:8082/artifactory/hkbrepository/com/example/demo/${{ steps.buildnumber.outputs.build_number }}/demo-${{ steps.buildnumber.outputs.build_number }}.jar -o ./deploydir/demo-${{ steps.buildnumber.outputs.build_number }}.jar  
+#     - name: Check if download successful
+#       run:  if [ -f "./deploydir/demo-${{ steps.buildnumber.outputs.build_number }}.jar" ]; then echo "File downloaded"; fi
 #       - name: Login to Azure Spring Cloud
 #         uses: azure/login@v1
 #         with:

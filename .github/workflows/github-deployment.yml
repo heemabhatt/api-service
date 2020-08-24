@@ -43,6 +43,8 @@ jobs:
       - run: |
             jfrog --version \
             jfrog rt dl artifacts
+      - run: echo JFROG_CLI_BUILD_NAME 
+      - run: echo JFROG_CLI_BUILD_NUMBER
       
 #       - name: Login to Azure Spring Cloud
 #         uses: azure/login@v1

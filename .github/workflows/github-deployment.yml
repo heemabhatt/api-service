@@ -27,7 +27,7 @@ jobs:
     - name: Generate build info
       run:  mvn spring-boot:build-info
     - name: show build info
-      run: if [ -f "./classes/META-INF/build-info.properties" ]; then echo "File downloaded"; fi
+      run: if [ -f "target/classes/META-INF/build-info.properties" ]; then echo "build info File exists"; fi
 #   artifact:
 #     name: Publish - Artifact
 #     runs-on: ubuntu-18.04

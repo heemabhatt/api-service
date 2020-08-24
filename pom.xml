@@ -69,16 +69,16 @@
 			</plugin>
 		</plugins>
 	</build>
-	<distributionManagement>
-		<repository>
-			<id>central</id>
-			<name>vmhkbdemo-releases</name>
-			<url>http://13.72.81.81:8081/artifactory/repositorykey</url>
-		</repository>
-		<snapshotRepository>
-			<id>snapshots</id>
-			<name>vmhkbdemo-snapshots</name>
-			<url>http://13.72.81.81:8081/artifactory/repositorykey</url>
-		</snapshotRepository>
-	</distributionManagement>
+<distributionManagement>
+    <repository>
+        <id>central</id>
+        <name>b8072d9a0a17-releases</name>
+        <url>http://69.250.67.37:8081/artifactory/hkbrepository</url>
+    </repository>
+    <snapshotRepository>
+        <id>snapshots</id>
+        <name>b8072d9a0a17-snapshots</name>
+        <url>http://69.250.67.37:8081/artifactory/hkbrepository</url>
+    </snapshotRepository>
+</distributionManagement>
 </project>

@@ -12,7 +12,7 @@ on:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  build-and-deploy:
+  build:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -40,7 +40,10 @@ jobs:
     runs-on: ubuntu-latest
     steps: 
       - uses: jfrog/setup-jfrog-cli@v1
-      - run: jfrog --version
+      - run: |
+            jfrog --version \
+            jfrog rt dl artifacts
+      
 #       - name: Login to Azure Spring Cloud
 #         uses: azure/login@v1
 #         with:

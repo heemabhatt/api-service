@@ -21,10 +21,11 @@ jobs:
       uses: actions/setup-java@v1
       with:
         java-version: 1.11
+
+    - name: Build with Maven
+      run: mvn package -Pcloud -s settings.xml
     - name: display build number
-      run: echo ${build.number}
-#     - name: Build with Maven
-#       run: mvn package -Pcloud -s settings.xml
+      run: echo ${build.number}      
 #   artifact:
 #     name: Publish - Artifact
 #     runs-on: ubuntu-18.04

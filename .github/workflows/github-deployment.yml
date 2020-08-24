@@ -23,9 +23,13 @@ jobs:
         java-version: 1.11
 
     - name: Build with Maven
-      run: mvn package -Pcloud -s settings.xml
+      run: mvn package -Pcloud -s settings.xml 
+    - name: Generate build info
+      run:  mvn spring-boot:build-info
     - name: display build number
-      run: echo build.number
+      run: echo ${project.build.outputDirectory}/META-INF/build-info.properties
+    - name: display build info from pom
+      run: echo ${pom.continuousIntegration.buildNumber}
 #   artifact:
 #     name: Publish - Artifact
 #     runs-on: ubuntu-18.04

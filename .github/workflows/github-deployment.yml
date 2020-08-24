@@ -9,12 +9,14 @@ on:
     branches: [ master ]
   pull_request:
     branches: [ master ]
-
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
+ 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+    - env:
+        build.number: 1.0.0 
     - uses: actions/checkout@v2
   
     - name: Set up JDK 1.11
@@ -28,6 +30,15 @@ jobs:
       run:  mvn spring-boot:build-info
     - name: show build info
       run: if [ -f "target/classes/META-INF/build-info.properties" ]; then echo "build info File exists"; fi
+    - name: Read value from Properties-file
+      id: read_property
+      uses: christian-draeger/read-properties@1.0.1
+      with:
+       path: 'target/classes/META-INF/build-info.properties'
+       property: 'build.continuousIntegration.buildNumber'
+    - name: Do something with your bumped release version
+      run: echo ${{ steps.read_property.outputs.value }}
+  # will print "the value of 'the.key.of.the.property'"
 #   artifact:
 #     name: Publish - Artifact
 #     runs-on: ubuntu-18.04

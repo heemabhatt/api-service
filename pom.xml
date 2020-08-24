@@ -50,7 +50,7 @@
 				<configuration>
 					<additionalProperties>
 						<continuousIntegration.agent>nihar-${build.agent}</continuousIntegration.agent>
-						<continuousIntegration.buildNumber>heema-${build.number}</continuousIntegration.buildNumber>
+						<continuousIntegration.buildNumber>heema-1.0.0</continuousIntegration.buildNumber>
 					</additionalProperties>
 				</configuration>
 				<executions>

@@ -21,21 +21,14 @@ jobs:
       uses: actions/setup-java@v1
       with:
         java-version: 1.11
-
-    - name: Build with Maven
-      run: mvn package -Pcloud -s settings.xml 
-    - name: Generate build info
-      run:  mvn spring-boot:build-info
-    - name: show build info
-      run: if [ -f "target/classes/META-INF/build-info.properties" ]; then echo "build info File exists"; fi
-    - name: Read value from Properties-file
-      id: read_property
-      uses: christian-draeger/read-properties@1.0.1
+    - name: Generate build number 
+      id: buildnumber
+      uses: einaregilsson/build-number@v2 
       with:
-       path: 'target/classes/META-INF/build-info.properties'
-       property: 'build.continuousIntegration.buildNumber'
-    - name: Do something with your bumped release version
-      run: echo ${{ steps.read_property.outputs.value }}
+        token: ${{secrets.github_token}} 
+    - name: Build with Maven
+      run: mvn versions:set -DnewVersion=${{ steps.buildnumber.outputs.build_number }} && mvn package -Pcloud -s settings.xml 
+  
   # will print "the value of 'the.key.of.the.property'"
 #   artifact:
 #     name: Publish - Artifact

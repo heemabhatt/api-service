@@ -6,9 +6,9 @@ name: CI
 # events but only for the master branch
 on:
   push:
-    branches: [ master ]
+    branches: [ master1 ]
   pull_request:
-    branches: [ master ]
+    branches: [ master1 ]
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -36,16 +36,10 @@ jobs:
       - name: Publish artifact 
         run: mvn deploy -s settings.xml
 
-  deploy:
-    runs-on: ubuntu-latest
-    steps: 
-      - uses: jfrog/setup-jfrog-cli@v1
-      - run: |
-            jfrog --version \
-            jfrog rt dl artifacts
-      - run: echo JFROG_CLI_BUILD_NAME 
-      - run: echo JFROG_CLI_BUILD_NUMBER
-      
+#   deploy:
+#     runs-on: ubuntu-latest
+#     steps: 
+          
 #       - name: Login to Azure Spring Cloud
 #         uses: azure/login@v1
 #         with:
@@ -65,4 +59,5 @@ jobs:
 #       - name: Deploy to Azure Spring Cloud
 #         run: |
 #             az spring-cloud app deploy --resource-group rg-spring-cloud-demo-hkb --service spring-cloud-demo-hkb --name api-service \
-#             --jar-path http://13.72.81.81:8082/artifactory/repositorykey/com/example/demo/0.0.1-SNAPSHOT/demo-0.0.1-20200821.202539-5.jar --env $(jq -r '. | to_entries[] | "\(.key)=\(.value) "' src/main/scripts/test_props.json)
+#             --jar-path http://admin:AKCp5fUhvYKnyBkh7xken3P5yM3H4k9W9vte6yRoVKJExqkiDDTPU7p3myib7w53y45fvZr3X@69.250.67.37:8082/artifactory/hkbrepository/com/example/demo/0.0.1-SNAPSHOT/demo-0.0.1-20200824.145520-5.jar \
+#             --env $(jq -r '. | to_entries[] | "\(.key)=\(.value) "' src/main/scripts/test_props.json)

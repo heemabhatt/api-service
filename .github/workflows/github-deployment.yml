@@ -36,16 +36,11 @@ jobs:
       - name: Publish artifact 
         run: mvn deploy -s settings.xml
 
-
   deploy:
     runs-on: ubuntu-latest
     steps: 
       - uses: jfrog/setup-jfrog-cli@v1
-        env:
-          JF_ARTIFACTORY_1: ${{ secrets.JF_ARTIFACTORY_SECRET_1 }}
-      - run: |
-             # Ping the server
-              jfrog rt ping
+      - run: jfrog --version
 #       - name: Login to Azure Spring Cloud
 #         uses: azure/login@v1
 #         with:

@@ -31,15 +31,10 @@ jobs:
     - name: Publish artifact 
       run: mvn deploy -s settings.xml
  
-     
-
-#   deploy:
-#     runs-on: ubuntu-latest
-#     steps: 
-#       - name: Create deploy director
-#         run: mkdir deploydir && curl -u admin:AKCp5fUhvYKnyBkh7xken3P5yM3H4k9W9vte6yRoVKJExqkiDDTPU7p3myib7w53y45fvZr3X http://69.250.67.37:8082/artifactory/hkbrepository/com/example/demo/0.0.1-SNAPSHOT/demo-0.0.1-20200824.145520-5.jar -o ./deploydir/demo-0.0.1-20200824.145520-5.jar  
-#       - name: Check if download successful
-#         run:  if [ -f "./deploydir/demo-0.0.1-20200824.145520-5.jar" ]; then echo "File downloaded"; fi
+    - name: Create deploy director
+      run: mkdir deploydir && curl -u admin:AKCp5fUhvYKnyBkh7xken3P5yM3H4k9W9vte6yRoVKJExqkiDDTPU7p3myib7w53y45fvZr3X http://69.250.67.37:8082/artifactory/hkbrepository/com/example/demo/${{ steps.buildnumber.outputs.build_number }}/demo-${{ steps.buildnumber.outputs.build_number }}.jar -o ./deploydir/demo-${{ steps.buildnumber.outputs.build_number }}.jar  
+    - name: Check if download successful
+      run:  if [ -f "./deploydir/demo-${{ steps.buildnumber.outputs.build_number }}.jar" ]; then echo "File downloaded"; fi
 #       - name: Login to Azure Spring Cloud
 #         uses: azure/login@v1
 #         with:
@@ -59,5 +54,5 @@ jobs:
 #       - name: Deploy to Azure Spring Cloud
 #         run: |
 #             az spring-cloud app deploy --resource-group rg-spring-cloud-demo-hkb --service spring-cloud-demo-hkb --name api-service \
-#             --jar-path ./deploydir/demo-0.0.1-20200824.145520-5.jar 
+#             --jar-path ./deploydir/demo-${{ steps.buildnumber.outputs.build_number }}.jar 
 #            --env $(jq -r '. | to_entries[] | "\(.key)=\(.value) "' src/main/scripts/test_props.json)

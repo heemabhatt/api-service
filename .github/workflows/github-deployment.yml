@@ -52,12 +52,12 @@ jobs:
         run: az spring-cloud app create -n api-service --runtime-version Java_11 --resource-group rg-spring-cloud-demo-hkb --service spring-cloud-demo-hkb
       - name: Install jq
         run: sudo apt-get update -y && sudo apt-get install -y jq
-      - name: create environment variables list using jq
-        run: echo $(jq -r '. | to_entries[] | "\(.key)=\(.value) "' src/main/scripts/test_props.json)
+#       - name: create environment variables list using jq
+#         run: echo $(jq -r '. | to_entries[] | "\(.key)=\(.value) "' src/main/scripts/test_props.json)
       - name: Print Environment variables
         run: echo "$CUSTOM_VAR"
       - name: Deploy to Azure Spring Cloud
         run: |
             az spring-cloud app deploy --resource-group rg-spring-cloud-demo-hkb --service spring-cloud-demo-hkb --name api-service \
-            --jar-path http://admin:AKCp5fUhvYKnyBkh7xken3P5yM3H4k9W9vte6yRoVKJExqkiDDTPU7p3myib7w53y45fvZr3X@69.250.67.37:8082/artifactory/hkbrepository/com/example/demo/0.0.1-SNAPSHOT/demo-0.0.1-20200824.145520-5.jar \
-            --env $(jq -r '. | to_entries[] | "\(.key)=\(.value) "' src/main/scripts/test_props.json)
+            --jar-path http://admin:AKCp5fUhvYKnyBkh7xken3P5yM3H4k9W9vte6yRoVKJExqkiDDTPU7p3myib7w53y45fvZr3X@69.250.67.37:8082/artifactory/hkbrepository/com/example/demo/0.0.1-SNAPSHOT/demo-0.0.1-20200824.145520-5.jar 
+#            --env $(jq -r '. | to_entries[] | "\(.key)=\(.value) "' src/main/scripts/test_props.json)

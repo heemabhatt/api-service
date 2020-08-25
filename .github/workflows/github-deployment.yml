@@ -28,12 +28,12 @@ jobs:
         token: ${{secrets.github_token}}
 
     - name: Display Environment Name if Dev
-      if: github.ref == 'Dev'
+      if: ${BRANCH_NAME} == 'Dev'
       run: echo 'Dev Build And Deploy'
       
     - name: Display Environment Name if Stage
-      if: 1 == 1
-      run: echo ${BRANCH_NAME}
+      if: ${BRANCH_NAME} == 'Stage'
+      run: echo 'Stage Build and Deploy'
         
     - name: Build and Deploy Dev
       if: github.ref == 'Dev'

@@ -18,7 +18,6 @@ jobs:
       with:
         java-version: 1.11
         
-    - name: Display Branch name
     - uses: nelonoel/branch-name@v1
     - run: echo ${BRANCH_NAME}
       
@@ -28,49 +27,18 @@ jobs:
       with:
         token: ${{secrets.github_token}}
 
-#     - name: Display Environment Name if Dev
-#     - uses: nelonoel/branch-name@v1
-#     - if: ${BRANCH_NAME} == 'Dev'
-#     - run: echo 'DEV'      
-#     - name: Display Environment Name if Stage
-#     - uses: nelonoel/branch-name@v1
-#       if: ${BRANCH_NAME} == 'Stage'
-#     - run: echo 'Stage Build And Deploy'
+    - name: Display Environment Name if Dev
+      if: github.ref == 'ref/heads/Dev'
+      run: echo 'Dev Build And Deploy'
+      
+    - name: Display Environment Name if Stage
+      if: github.ref == 'ref/heads/Stage'
+      run: echo 'Stage Build And Deploy'
         
-#     - name: Build and Deploy Dev
-#       if: ${BRANCH_NAME} == 'Dev'
-#     - run: mvn versions:set -DnewVersion=${{ steps.buildnumber.outputs.build_number }} && mvn clean package -s settings.xml -PDev ENVIRONMENT_MESSAGE=DevSaysHello
+    - name: Build and Deploy Dev
+      if: github.ref == 'ref/heads/Dev'
+      run: mvn versions:set -DnewVersion=${{ steps.buildnumber.outputs.build_number }} && mvn clean package -s settings.xml -PDev ENVIRONMENT_MESSAGE=DevSaysHello
             
-#     - name: Build and Deploy Stage
-#       if: ${BRANCH_NAME} == 'Stage'
-#     - run: mvn versions:set -DnewVersion=${{ steps.buildnumber.outputs.build_number }} && mvn clean package -s settings.xml -PStage ENVIRONMENT_MESSAGE=StageSaysHello
-
-#       - name: Login to Azure Spring Cloud
-#         uses: azure/login@v1
-#         with:
-#          creds: ${{ secrets.AZURE_CREDENTIALS }}
-#       - name: Install Azure Spring Cloud extension
-#         run: az extension add -y --name spring-cloud
-#       - name: Delete app
-#         run: az spring-cloud app delete -n api-service --resource-group rg-spring-cloud-demo-hkb --service spring-cloud-demo-hkb
-#       - name: Create app
-#         run: az spring-cloud app create -n api-service --runtime-version Java_11 --resource-group rg-spring-cloud-demo-hkb --service spring-cloud-demo-hkb
-#       - name: Install jq
-#         run: sudo apt-get update -y && sudo apt-get install -y jq
-#       - name: create environment variables list using jq
-#         run: echo $(jq -r '. | to_entries[] | "\(.key)=\(.value) "' src/main/scripts/test_props.json)
-#       - name: Print Environment variables
-#         run: echo "$CUSTOM_VAR"
-#       - name: Deploy to Azure Spring Cloud
-#         run: |
-#             az spring-cloud app deploy --resource-group rg-spring-cloud-demo-hkb --service spring-cloud-demo-hkb --name api-service \
-#             --jar-path ./deploydir/demo-${{ steps.buildnumber.outputs.build_number }}.jar 
-#            --env $(jq -r '. | to_entries[] | "\(.key)=\(.value) "' src/main/scripts/test_props.json)
-#  release-on-push:
-#    runs-on: ubuntu-latest
-#    env:
-#      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-#    steps:
-#      - uses: rymndhng/release-on-push-action@master
-#        with:
-#          bump_version_scheme: minor
+    - name: Build and Deploy Stage
+      if: github.ref == 'ref/heads/Stage'
+      run: mvn versions:set -DnewVersion=${{ steps.buildnumber.outputs.build_number }} && mvn clean package -s settings.xml -PStage ENVIRONMENT_MESSAGE=StageSaysHello

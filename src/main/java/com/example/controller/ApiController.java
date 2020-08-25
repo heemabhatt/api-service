@@ -7,8 +7,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class ApiController {
 
-	@Value("${mykey}")
-	private String mykey;
 	
 	@Value("${spring.myenv}")
 	private String myenv;
@@ -18,6 +16,6 @@ public class ApiController {
 	@GetMapping("/")
 	public String Names()
 	{
-		return "My Key:  " + mykey +  " My Env: " + myenv   ;
+		return " My Env: " + myenv   ;
 	}
 }

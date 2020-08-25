@@ -11,7 +11,7 @@
 	</parent>
 	<groupId>com.example</groupId>
 	<artifactId>demo</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0.H</version>
 	<name>demo</name>
 	<description>Demo project for Spring Boot</description>
 
@@ -27,7 +27,7 @@
 		</dependency>
 		<!-- <dependency> <groupId>org.springframework.cloud</groupId> <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId> 
 			</dependency> -->
- 
+
 	</dependencies>
 
 	<dependencyManagement>
@@ -47,38 +47,19 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
-				<configuration>
-					<additionalProperties>
-						<continuousIntegration.agent>nihar-${build.agent}</continuousIntegration.agent>
-						<continuousIntegration.buildNumber>heema-1.0.0</continuousIntegration.buildNumber>
-					</additionalProperties>
-				</configuration>
-				<executions>
-					<execution>
-						<id>build information</id>
-						<goals>
-							<goal>build-info</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-war-plugin</artifactId>
 			</plugin>
 		</plugins>
 	</build>
-<distributionManagement>
-    <repository>
-        <id>central</id>
-        <name>b8072d9a0a17-releases</name>
-        <url>http://69.250.67.37:8081/artifactory/hkbrepository</url>
-    </repository>
-    <snapshotRepository>
-        <id>snapshots</id>
-        <name>b8072d9a0a17-snapshots</name>
-        <url>http://69.250.67.37:8081/artifactory/hkbrepository</url>
-    </snapshotRepository>
-</distributionManagement>
+	<distributionManagement>
+		<repository>
+			<id>central</id>
+			<name>b8072d9a0a17-releases</name>
+			<url>http://69.250.67.37:8081/artifactory/hkbrepository</url>
+		</repository>
+		<snapshotRepository>
+			<id>snapshots</id>
+			<name>b8072d9a0a17-snapshots</name>
+			<url>http://69.250.67.37:8081/artifactory/hkbrepository</url>
+		</snapshotRepository>
+	</distributionManagement>
 </project>

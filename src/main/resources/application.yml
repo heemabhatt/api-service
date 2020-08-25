@@ -1,18 +1,24 @@
 server:
-  port: 9080
-mykey: mykeyvariablevalue
-spring:
-  profiles: 
-   myenv: DefaultEnvironment
+  port: 9090
 ---
 spring:
   profiles: 
-    active: Local
+    active: Stage
 ---
 spring:
-  profiles: Local
-  myenv: LocalEnvironment
+  profiles: Dev
+  myenv: DevEnvironment
+  params:
+    env: Dev
 ---
 spring:
-  profiles: Cloud
-  myenv: CloudEnvironment
+  profiles: Stage
+  myenv: StageEnvironment
+  params:
+    env: Stage
+---
+spring:
+  profiles: Prod
+  myenv: ProdEnvironment
+  params:
+    env: Prod

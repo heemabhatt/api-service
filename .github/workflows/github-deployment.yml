@@ -17,7 +17,6 @@ jobs:
       uses: actions/setup-java@v1
       with:
         java-version: 1.11
-		
     - name: Generate build number
       id: buildnumber
       uses: einaregilsson/build-number@v2
@@ -25,14 +24,15 @@ jobs:
         token: ${{secrets.github_token}}
       
     - name: Build for Dev
-	    if: github.ref == 'ref/heads/Dev'
+      if: github.ref == 'ref/heads/Dev'
       run: mvn versions:set -DnewVersion=${{ steps.buildnumber.outputs.build_number }} && mvn clean package -s settings.xml -PDev ENVIRONMENT_MESSAGE=DevSaysHello 
             
     - name: Build and Deploy Stage
-	    if: github.ref=='ref/heads/Stage'
-	    run: mvn versions:set -DnewVersion=${{ steps.buildnumber.outputs.build_number }} && mvn clean package -s settings.xml -PStage ENVIRONMENT_MESSAGE=StageSaysHello
-	  - name: Display Environment
+      if: github.ref=='ref/heads/Stage'
+      run: mvn versions:set -DnewVersion=${{ steps.buildnumber.outputs.build_number }} && mvn clean package -s settings.xml -PStage ENVIRONMENT_MESSAGE=StageSaysHello
+    - name: Display Environment
       run: echo 'Stage Build And Deploy'
+      	
 #       - name: Login to Azure Spring Cloud
 #         uses: azure/login@v1
 #         with:

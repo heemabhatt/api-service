@@ -32,7 +32,7 @@ jobs:
 
     - name: Display Environment Name if Dev
     - uses: nelonoel/branch-name@v1
-      if: ${BRANCH_NAME} == 'Dev'
+    #  if: ${BRANCH_NAME} == 'Dev'
     - run: echo ${{ steps.branchname.outputs.BRANCH_NAME }}
       
 #     - name: Display Environment Name if Stage

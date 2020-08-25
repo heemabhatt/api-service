@@ -28,7 +28,7 @@ jobs:
         token: ${{secrets.github_token}}
 
     - name: Display Environment Name if Dev
-      if: contains(${BRANCH_NAME}, 'Dev')
+      if: contains($BRANCH_NAME, 'Dev')
       run: echo 'Dev Build And Deploy'
       
 #     - name: Display Environment Name if Stage

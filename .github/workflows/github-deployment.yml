@@ -32,7 +32,6 @@ jobs:
       run: mvn versions:set -DnewVersion=${{ steps.buildnumber.outputs.build_number }} && mvn clean package -s settings.xml -PStage ENVIRONMENT_MESSAGE=StageSaysHello
     - name: Display Environment
       run: echo 'Stage Build And Deploy'
-      	
 #       - name: Login to Azure Spring Cloud
 #         uses: azure/login@v1
 #         with:

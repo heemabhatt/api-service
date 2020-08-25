@@ -55,9 +55,9 @@ jobs:
     
     - name: create environment variables list using jq
       run: echo $(jq -r '. | to_entries[] | "\(.key)=\(.value) "' src/main/resources/ConfigFiles/Configuration.${BRANCH_NAME}.json)
-    - name: Print Environment variables
-      run: echo "$CUSTOM_VAR"
 
+    - name: display ENVIRONMENT_MESSAGE value
+      run: echo ${ENVIRONMENT_MESSAGE}
 #       - name: Login to Azure Spring Cloud
 #         uses: azure/login@v1
 #         with:

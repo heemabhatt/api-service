@@ -29,10 +29,10 @@ jobs:
       with:
         token: ${{secrets.github_token}}
 
-    - name: Display Environment Name if Dev
-    - uses: nelonoel/branch-name@v1
-    - if: ${BRANCH_NAME} == 'Dev'
-    - run: echo 'DEV'      
+#     - name: Display Environment Name if Dev
+#     - uses: nelonoel/branch-name@v1
+#     - if: ${BRANCH_NAME} == 'Dev'
+#     - run: echo 'DEV'      
 #     - name: Display Environment Name if Stage
 #     - uses: nelonoel/branch-name@v1
 #       if: ${BRANCH_NAME} == 'Stage'

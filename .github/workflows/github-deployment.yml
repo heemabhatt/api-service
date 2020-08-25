@@ -13,45 +13,51 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - name: Set up JDK 1.11
-      uses: actions/setup-java@v1
-      with:
-        java-version: 1.11
+    
+    - name: Check if environment specific config file exists
+      run: Run if [ -f "src/main/resources/ConfigFiles/Configuration.Dev.json" ]; then echo "File downloaded"; fi
+      
+#     - name: Set up JDK 1.11
+#       uses: actions/setup-java@v1
+#       with:
+#         java-version: 1.11
         
-    - uses: nelonoel/branch-name@v1
-    - run: echo ${BRANCH_NAME}
-    - run: echo "::set-env name=BRANCH::${BRANCH_NAME}"
+#     - uses: nelonoel/branch-name@v1
+#     - run: echo ${BRANCH_NAME}
+#     - run: echo "::set-env name=BRANCH::${BRANCH_NAME}"
       
-    - name: Generate build number
-      id: buildnumber
-      uses: einaregilsson/build-number@v2
-      with:
-        token: ${{secrets.github_token}}
-    - name: Build
-      run: mvn versions:set -DnewVersion=${{ steps.buildnumber.outputs.build_number }} && mvn clean package -s settings.xml
+#     - name: Generate build number
+#       id: buildnumber
+#       uses: einaregilsson/build-number@v2
+#       with:
+#         token: ${{secrets.github_token}}
+#     - name: Build
+#       run: mvn versions:set -DnewVersion=${{ steps.buildnumber.outputs.build_number }} && mvn clean package -s settings.xml
     
-    - name: Display Environment Name if Dev
-      if: contains(env.BRANCH, 'Dev')
-      run: echo 'Dev Build And Deploy'
+#     - name: Display Environment Name if Dev
+#       if: contains(env.BRANCH, 'Dev')
+#       run: echo 'Dev Build And Deploy'
       
-    - name: Display Environment Name if Stage
-      if: contains(env.BRANCH, 'Stage')
-      run: echo 'Stage Build and Deploy'
+#     - name: Display Environment Name if Stage
+#       if: contains(env.BRANCH, 'Stage')
+#       run: echo 'Stage Build and Deploy'
     
-    - name: Deploy To Dev
-      if: contains(env.BRANCH, 'Dev')
-      run: echo 'Now Deploying to Dev'
+#     - name: Deploy To Dev
+#       if: contains(env.BRANCH, 'Dev')
+#       run: echo 'Now Deploying to Dev'
               
-    - name: Deploy To Stage
-      if: contains(env.BRANCH, 'Stage')
-      run: echo 'Now Deploying to Stage'
+#     - name: Deploy To Stage
+#       if: contains(env.BRANCH, 'Stage')
+#       run: echo 'Now Deploying to Stage'
 
-    - name: Install jq
-      run: sudo apt-get update -y && sudo apt-get install -y jq
-    - name: create environment variables list using jq
-      run: echo $(jq -r '. | to_entries[] | "\(.key)=\(.value) "' src/main/resources/ConfigFiles/Configuration.Dev.json)
-    - name: Print Environment variables
-      run: echo "$CUSTOM_VAR"
+#     - name: Install jq
+#       run: sudo apt-get update -y && sudo apt-get install -y jq
+#     - name: Check if environment specific config file exists
+#       run: Run if [ -f "src/main/resources/ConfigFiles/Configuration.Dev.json" ]; then echo "File downloaded"; fi
+#     - name: create environment variables list using jq
+#       run: echo $(jq -r '. | to_entries[] | "\(.key)=\(.value) "' src/main/resources/ConfigFiles/Configuration.Dev.json)
+#     - name: Print Environment variables
+#       run: echo "$CUSTOM_VAR"
 
 #       - name: Login to Azure Spring Cloud
 #         uses: azure/login@v1

@@ -1,40 +1,50 @@
-# This is a basic workflow to help you get started with Actions
-
 name: CI
 
 # Controls when the action will run. Triggers the workflow on push or pull request
-# events but only for the master branch
+# events for the listed branches
 on:
   push:
-    branches: [ master1 ]
+    branches: [Dev, Stage, Prod]
   pull_request:
-    branches: [ master1 ]
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+    branches: [ master ]
  
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-  
+      
     - name: Set up JDK 1.11
       uses: actions/setup-java@v1
       with:
         java-version: 1.11
-    - name: Generate build number 
+        
+    - name: Display Branch name
+    - uses: nelonoel/branch-name@v1
+    - run: echo ${BRANCH_NAME}
+      
+    - name: Generate build number
       id: buildnumber
-      uses: einaregilsson/build-number@v2 
+      uses: einaregilsson/build-number@v2
       with:
-        token: ${{secrets.github_token}} 
-    - name: Build with Maven
-      run: mvn versions:set -DnewVersion=${{ steps.buildnumber.outputs.build_number }} && mvn package -Pcloud -s settings.xml 
-    - name: Publish artifact 
-      run: mvn deploy -s settings.xml
- 
-#     - name: Create deploy director
-#       run: mkdir deploydir && curl -u admin:AKCp5fUhvYKnyBkh7xken3P5yM3H4k9W9vte6yRoVKJExqkiDDTPU7p3myib7w53y45fvZr3X http://69.250.67.37:8082/artifactory/hkbrepository/com/example/demo/${{ steps.buildnumber.outputs.build_number }}/demo-${{ steps.buildnumber.outputs.build_number }}.jar -o ./deploydir/demo-${{ steps.buildnumber.outputs.build_number }}.jar  
-#     - name: Check if download successful
-#       run:  if [ -f "./deploydir/demo-${{ steps.buildnumber.outputs.build_number }}.jar" ]; then echo "File downloaded"; fi
+        token: ${{secrets.github_token}}
+
+    - name: Display Environment Name if Dev
+      if: ${BRANCH_NAME} == 'Dev'
+      run: echo 'Dev Build And Deploy'
+      
+    - name: Display Environment Name if Stage
+      if: ${BRANCH_NAME} == 'Stage'
+      run: echo 'Stage Build And Deploy'
+        
+    - name: Build and Deploy Dev
+      if: ${BRANCH_NAME} == 'Dev'
+      run: mvn versions:set -DnewVersion=${{ steps.buildnumber.outputs.build_number }} && mvn clean package -s settings.xml -PDev ENVIRONMENT_MESSAGE=DevSaysHello
+            
+    - name: Build and Deploy Stage
+      if: ${BRANCH_NAME} == 'Stage'
+      run: mvn versions:set -DnewVersion=${{ steps.buildnumber.outputs.build_number }} && mvn clean package -s settings.xml -PStage ENVIRONMENT_MESSAGE=StageSaysHello
+
 #       - name: Login to Azure Spring Cloud
 #         uses: azure/login@v1
 #         with:
@@ -56,12 +66,11 @@ jobs:
 #             az spring-cloud app deploy --resource-group rg-spring-cloud-demo-hkb --service spring-cloud-demo-hkb --name api-service \
 #             --jar-path ./deploydir/demo-${{ steps.buildnumber.outputs.build_number }}.jar 
 #            --env $(jq -r '. | to_entries[] | "\(.key)=\(.value) "' src/main/scripts/test_props.json)
- 
-  release-on-push:
-    runs-on: ubuntu-latest
-    env:
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    steps:
-      - uses: rymndhng/release-on-push-action@master
-        with:
-          bump_version_scheme: minor
+#  release-on-push:
+#    runs-on: ubuntu-latest
+#    env:
+#      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#    steps:
+#      - uses: rymndhng/release-on-push-action@master
+#        with:
+#          bump_version_scheme: minor

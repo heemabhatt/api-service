@@ -20,8 +20,9 @@ jobs:
         java-version: 1.11
         
     - name: Display Branch name
-    - uses: nelonoel/branch-name@v1
-    - run: echo ${BRANCH_NAME}
+      id: branchname
+      uses: nelonoel/branch-name@v1
+      #run: echo ${BRANCH_NAME}
       
     - name: Generate build number
       id: buildnumber
@@ -32,12 +33,12 @@ jobs:
     - name: Display Environment Name if Dev
     - uses: nelonoel/branch-name@v1
       if: ${BRANCH_NAME} == 'Dev'
-    - run: echo 'Dev Build And Deploy'
+    - run: echo ${{ steps.branchname.outputs.BRANCH_NAME }}
       
-    - name: Display Environment Name if Stage
-    - uses: nelonoel/branch-name@v1
-      if: ${BRANCH_NAME} == 'Stage'
-    - run: echo 'Stage Build And Deploy'
+#     - name: Display Environment Name if Stage
+#     - uses: nelonoel/branch-name@v1
+#       if: ${BRANCH_NAME} == 'Stage'
+#     - run: echo 'Stage Build And Deploy'
         
 #     - name: Build and Deploy Dev
 #       if: ${BRANCH_NAME} == 'Dev'

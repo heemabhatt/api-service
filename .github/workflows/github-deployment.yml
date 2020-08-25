@@ -22,6 +22,10 @@ jobs:
       uses: einaregilsson/build-number@v2
       with:
         token: ${{secrets.github_token}}
+
+    - name: Display Branch Name
+      run: echo "##[set-output name=branch;]${GITHUB_REF#refs/heads/}"
+
     - name: Display Environment Name if Dev
       if: github.ref == 'ref/heads/Dev'
       run: echo 'Dev Build And Deploy'

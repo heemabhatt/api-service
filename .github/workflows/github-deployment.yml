@@ -13,12 +13,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
+      
     - name: Set up JDK 1.11
       uses: actions/setup-java@v1
       with:
         java-version: 1.11
         
-    
+    - name: Display Branch name
     - uses: nelonoel/branch-name@v1
     - run: echo ${BRANCH_NAME}
       
@@ -29,19 +30,19 @@ jobs:
         token: ${{secrets.github_token}}
 
     - name: Display Environment Name if Dev
-      if: github.ref == 'ref/heads/Dev'
+      if: ${BRANCH_NAME} == 'Dev'
       run: echo 'Dev Build And Deploy'
       
     - name: Display Environment Name if Stage
-      if: github.ref == 'ref/heads/Stage'
+      if: ${BRANCH_NAME} == 'Stage'
       run: echo 'Stage Build And Deploy'
         
     - name: Build and Deploy Dev
-      if: github.ref == 'ref/heads/Dev'
+      if: ${BRANCH_NAME} == 'Dev'
       run: mvn versions:set -DnewVersion=${{ steps.buildnumber.outputs.build_number }} && mvn clean package -s settings.xml -PDev ENVIRONMENT_MESSAGE=DevSaysHello
             
     - name: Build and Deploy Stage
-      if: github.ref == 'ref/heads/Stage'
+      if: ${BRANCH_NAME} == 'Stage'
       run: mvn versions:set -DnewVersion=${{ steps.buildnumber.outputs.build_number }} && mvn clean package -s settings.xml -PStage ENVIRONMENT_MESSAGE=StageSaysHello
 
 #       - name: Login to Azure Spring Cloud

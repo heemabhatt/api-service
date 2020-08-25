@@ -27,7 +27,9 @@ jobs:
       uses: einaregilsson/build-number@v2
       with:
         token: ${{secrets.github_token}}
-
+    - name: Build
+      run: mvn versions:set -DnewVersion=${{ steps.buildnumber.outputs.build_number }} && mvn clean package -s settings.xml
+    
     - name: Display Environment Name if Dev
       if: contains(env.BRANCH, 'Dev')
       run: echo 'Dev Build And Deploy'
@@ -35,11 +37,11 @@ jobs:
     - name: Display Environment Name if Stage
       if: contains(env.BRANCH, 'Stage')
       run: echo 'Stage Build and Deploy'
-        
-    - name: Build and Deploy Dev
+    
+    - name: Deploy To Dev
       if: contains(env.BRANCH, 'Dev')
-      run: mvn versions:set -DnewVersion=${{ steps.buildnumber.outputs.build_number }} && mvn clean package -s settings.xml -PDev ENVIRONMENT_MESSAGE=DevSaysHello
-            
-    - name: Build and Deploy Stage
+      run: echo 'Now Deploying to Dev'
+              
+    - name: Deploy To Stage
       if: contains(env.BRANCH, 'Stage')
-      run: mvn versions:set -DnewVersion=${{ steps.buildnumber.outputs.build_number }} && mvn clean package -s settings.xml -PStage ENVIRONMENT_MESSAGE=StageSaysHello
+      run: echo 'Now Deploying to Stage'

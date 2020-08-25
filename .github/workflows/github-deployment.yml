@@ -28,17 +28,17 @@ jobs:
         token: ${{secrets.github_token}}
 
     - name: Display Environment Name if Dev
-      if: github.ref == 'ref/heads/Dev'
+      if: github.ref == 'Dev'
       run: echo 'Dev Build And Deploy'
       
     - name: Display Environment Name if Stage
-      if: github.ref == 'ref/heads/Stage'
+      if: github.ref == 'Stage'
       run: echo 'Stage Build And Deploy'
         
     - name: Build and Deploy Dev
-      if: github.ref == 'ref/heads/Dev'
+      if: github.ref == 'Dev'
       run: mvn versions:set -DnewVersion=${{ steps.buildnumber.outputs.build_number }} && mvn clean package -s settings.xml -PDev ENVIRONMENT_MESSAGE=DevSaysHello
             
     - name: Build and Deploy Stage
-      if: github.ref == 'ref/heads/Stage'
+      if: github.ref == 'Stage'
       run: mvn versions:set -DnewVersion=${{ steps.buildnumber.outputs.build_number }} && mvn clean package -s settings.xml -PStage ENVIRONMENT_MESSAGE=StageSaysHello

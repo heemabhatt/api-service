@@ -28,17 +28,17 @@ jobs:
         token: ${{secrets.github_token}}
 
     - name: Display Environment Name if Dev
-      if: ${BRANCH_NAME} == 'Dev'
+      if: contains(${BRANCH_NAME}, 'Dev')
       run: echo 'Dev Build And Deploy'
       
-    - name: Display Environment Name if Stage
-      if: ${BRANCH_NAME} == 'Stage'
-      run: echo 'Stage Build and Deploy'
+#     - name: Display Environment Name if Stage
+#       if: ${BRANCH_NAME} == 'Stage'
+#       run: echo 'Stage Build and Deploy'
         
-    - name: Build and Deploy Dev
-      if: github.ref == 'Dev'
-      run: mvn versions:set -DnewVersion=${{ steps.buildnumber.outputs.build_number }} && mvn clean package -s settings.xml -PDev ENVIRONMENT_MESSAGE=DevSaysHello
+#     - name: Build and Deploy Dev
+#       if: github.ref == 'Dev'
+#       run: mvn versions:set -DnewVersion=${{ steps.buildnumber.outputs.build_number }} && mvn clean package -s settings.xml -PDev ENVIRONMENT_MESSAGE=DevSaysHello
             
-    - name: Build and Deploy Stage
-      if: github.ref == 'Stage'
-      run: mvn versions:set -DnewVersion=${{ steps.buildnumber.outputs.build_number }} && mvn clean package -s settings.xml -PStage ENVIRONMENT_MESSAGE=StageSaysHello
+#     - name: Build and Deploy Stage
+#       if: github.ref == 'Stage'
+#       run: mvn versions:set -DnewVersion=${{ steps.buildnumber.outputs.build_number }} && mvn clean package -s settings.xml -PStage ENVIRONMENT_MESSAGE=StageSaysHello

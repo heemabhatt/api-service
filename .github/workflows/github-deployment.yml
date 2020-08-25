@@ -32,7 +32,7 @@ jobs:
       run: echo 'Dev Build And Deploy'
       
     - name: Display Environment Name if Stage
-      if: github.ref == 'Stage'
+      if: 1 == 1
       run: echo 'Stage Build And Deploy'
         
     - name: Build and Deploy Dev

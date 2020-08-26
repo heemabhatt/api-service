@@ -3,8 +3,8 @@ name: Release workflow
 on:
   push:
     branches: [ Stage1 ]
-    tags:
-      - 'v*' # Push events to matching v*, i.e. v1.0, v20.15.10
+#     tags:
+#       - 'v*' # Push events to matching v*, i.e. v1.0, v20.15.10
 jobs:
   build:
     name: Create Release

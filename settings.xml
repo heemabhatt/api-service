@@ -40,7 +40,7 @@
 		<server>
 			<id>github</id>
 			<username>heemabhatt</username>
-			<password>${{ secrets.GH_TOKEN }}</password>
+			<password>${env.GIT_TOKEN}</password>
 
 		</server>
 	</servers>

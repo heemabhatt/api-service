@@ -57,10 +57,18 @@ jobs:
 #       run: echo $(jq -r '. | to_entries[] | "\(.key)=\(.value) "' src/main/resources/ConfigFiles/Configuration.${BRANCH_NAME}.json)
 #     - name: Print Environment variables
 #       run: echo "$CUSTOM_VAR"
-   
+    - name: Process version of the tag
+      id: version
+      uses: ncipollo/semantic-version-action@v1
+    
+    - name: echo version
+      run: echo ${{ toJson(steps.version.outputs) }}    
+    
+    - name: Build with Maven
+      run: mvn versions:set -DnewVersion=${{ steps.buildnumber.outputs.build_number }} && mvn package -Pcloud -s settings.xml 
+      
     - name: Deploy package
-      if: contains(env.BRANCH, 'Stage')
-      run: mvn deploy -Dregistry=https://maven.pkg.github.com/heemabhatt -Dtoken= ${{ secrets.GH_TOKEN }}
+      run: mvn deploy -Dregistry=https://maven.pkg.github.com/heemabhatt -Dtoken=GH_TOKEN -s settings.xml
 
 #       - name: Login to Azure Spring Cloud
 #         uses: azure/login@v1

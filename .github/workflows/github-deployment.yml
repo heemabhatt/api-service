@@ -4,7 +4,7 @@ name: CI
 # events for the listed branches
 on:
   push:
-    branches: [Dev, Stage, Prod]
+    branches: [Dev, Stage1, Prod]
   pull_request:
     branches: [ master ]
  
@@ -57,6 +57,10 @@ jobs:
       run: echo $(jq -r '. | to_entries[] | "\(.key)=\(.value) "' src/main/resources/ConfigFiles/Configuration.${BRANCH_NAME}.json)
     - name: Print Environment variables
       run: echo "$CUSTOM_VAR"
+   
+    - name: Deploy package
+      if: contains(env.BRANCH, 'Stage')
+      run: mvn deploy -Dregistry=https://maven.pkg.github.com/heemabhatt -Dtoken=GITHUB_TOKEN
 
 #       - name: Login to Azure Spring Cloud
 #         uses: azure/login@v1

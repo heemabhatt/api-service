@@ -4,7 +4,7 @@ name: CI
 # events for the listed branches
 on:
   push:
-    branches: [Dev, Stage1, Prod]
+    branches: [Dev, Stage, Prod]
   pull_request:
     branches: [ master ]
 
@@ -52,7 +52,8 @@ jobs:
 
     - name: Deploy package
       run: mvn deploy -s settings.xml
-    
+      env: 
+        GH_TOKEN: ${{ secrets.GH_TOKEN }}
 #       - name: Login to Azure Spring Cloud
 #         uses: azure/login@v1
 #         with:

@@ -40,7 +40,7 @@
 		<server>
 			<id>github</id>
 			<username>heemabhatt</username>
-			<password>${env.GH_TOKEN}</password>
+			<password>fe798cb7523c66a94d01c6fe7fae18279503d0e7</password>
 		</server>
 	</servers>
 </settings>

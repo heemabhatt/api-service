@@ -60,7 +60,7 @@ jobs:
    
     - name: Deploy package
       if: contains(env.BRANCH, 'Stage')
-      run: mvn deploy -Dregistry=https://maven.pkg.github.com/heemabhatt -Dtoken=GITHUB_TOKEN
+      run: mvn deploy --settings settings.xml
 
 #       - name: Login to Azure Spring Cloud
 #         uses: azure/login@v1

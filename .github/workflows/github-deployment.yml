@@ -24,48 +24,50 @@ jobs:
     - run: echo ${BRANCH_NAME}
     - run: echo "::set-env name=BRANCH::${BRANCH_NAME}"
       
-#     - name: Generate build number
-#       id: buildnumber
-#       uses: einaregilsson/build-number@v2
-#       with:
-#         token: ${{secrets.github_token}}
+    - name: Generate build number
+      id: buildnumber
+      uses: einaregilsson/build-number@v2
+      with:
+        token: ${{secrets.github_token}}
          
-#     - name: Deploy To Dev
-#       if: contains(env.BRANCH, 'Dev')
-#       run: echo 'Now Deploying to Dev'
+    - name: Deploy To Dev
+      if: contains(env.BRANCH, 'Dev')
+      run: echo 'Now Deploying to Dev'
               
-#     - name: Deploy To Stage
-#       if: contains(env.BRANCH, 'Stage')
-#       run: echo 'Now Deploying to Stage'
+    - name: Deploy To Stage
+      if: contains(env.BRANCH, 'Stage')
+      run: echo 'Now Deploying to Stage'
 
-#     - name: Check if environment specific config file exists
-#       run: if [ -f "src/main/resources/ConfigFiles/Configuration.${BRANCH_NAME}.json" ]; then echo "File downloaded"; fi
+    - name: Check if environment specific config file exists
+      run: if [ -f "src/main/resources/ConfigFiles/Configuration.${BRANCH_NAME}.json" ]; then echo "File downloaded"; fi
     
-#     - name: Install jq
-#       run: sudo apt-get update -y && sudo apt-get install -y jq
+    - name: Install jq
+      run: sudo apt-get update -y && sudo apt-get install -y jq
     
-#     - name: create environment variables list using jq
-#       run: echo $(jq -r '. | to_entries[] | "\(.key)=\(.value) "' src/main/resources/ConfigFiles/Configuration.${BRANCH_NAME}.json)
+    - name: create environment variables list using jq
+      run: echo $(jq -r '. | to_entries[] | "\(.key)=\(.value) "' src/main/resources/ConfigFiles/Configuration.${BRANCH_NAME}.json)
     
-#     - name: Build with Maven
-#       run: mvn versions:set -DnewVersion=1.0.${{ steps.buildnumber.outputs.build_number }} && mvn package -s settings.xml
+    - name: Build with Maven
+      run: mvn versions:set -DnewVersion=1.0.${{ steps.buildnumber.outputs.build_number }} && mvn package -s settings.xml
       
 #     - name: Deploy package
 #       run:  mvn deploy -Dregistry=https://maven.pkg.github.com/heemabhatt -s settings.xml
 #       env:
 #         GIT_TOKEN: ${{ secrets.GH_TOKEN }}
-    
-#     - name: Create deploy director
-#       run: mkdir deploydir 
-    
-    
-    - uses: actions/download-artifact@v2
-      with:
-       name: demo
-       
-    - name: Display structure of downloaded files
-      run: ls -R
- 
+  
+  release:
+    runs-on: ubuntu-latest
+    needs: [build]
+    steps:
+      - uses: actions/checkout@master
+      - name: Create release
+        uses: Roang-zero1/github-create-release-action@master
+        env:
+         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Create GitHub release
+        uses: Roang-zero1/github-upload-release-artifacts-action@master
+        env:
+         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 #     - name: Check if download successful
 #       run:  if [ -f "./deploydir/demo-${{ steps.buildnumber.outputs.build_number }}.jar" ]; then echo "File downloaded"; fi
 #       - name: Login to Azure Spring Cloud

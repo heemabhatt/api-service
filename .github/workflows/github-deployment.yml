@@ -38,14 +38,14 @@ jobs:
       if: contains(env.BRANCH, 'Stage')
       run: echo 'Now Deploying to Stage'
 
-#     - name: Check if environment specific config file exists
-#       run: if [ -f "src/main/resources/ConfigFiles/Configuration.${BRANCH_NAME}.json" ]; then echo "File downloaded"; fi
+    - name: Check if environment specific config file exists
+      run: if [ -f "src/main/resources/ConfigFiles/Configuration.${BRANCH_NAME}.json" ]; then echo "File downloaded"; fi
     
-#     - name: Install jq
-#       run: sudo apt-get update -y && sudo apt-get install -y jq
+    - name: Install jq
+      run: sudo apt-get update -y && sudo apt-get install -y jq
     
-#     - name: create environment variables list using jq
-#       run: echo $(jq -r '. | to_entries[] | "\(.key)=\(.value) "' src/main/resources/ConfigFiles/Configuration.${BRANCH_NAME}.json)
+    - name: create environment variables list using jq
+      run: echo $(jq -r '. | to_entries[] | "\(.key)=\(.value) "' src/main/resources/ConfigFiles/Configuration.${BRANCH_NAME}.json)
     
     - name: Build with Maven
       run: mvn versions:set -DnewVersion=1.0.${{ steps.buildnumber.outputs.build_number }} && mvn package -s settings.xml

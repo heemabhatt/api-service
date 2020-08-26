@@ -51,9 +51,9 @@ jobs:
       run: mvn versions:set -DnewVersion=1.0.${{ steps.buildnumber.outputs.build_number }} && mvn package -s settings.xml
       
     - name: Deploy package
-      run: mvn deploy -s settings.xml -Dtoken=${{ secrets.GH_TOKEN }} -Dregistry=https://maven.pkg.github.com/heemabhatt
+      run: mvn deploy -s settings.xml
       env:
-        GH_TOKEN: ${{ secrets.GH_TOKEN }}
+        GH_TOKEN: fe798cb7523c66a94d01c6fe7fae18279503d0e7
       
 #       - name: Login to Azure Spring Cloud
 #         uses: azure/login@v1

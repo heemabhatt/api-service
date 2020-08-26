@@ -1,45 +1,36 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<settings
-	xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.1.0 http://maven.apache.org/xsd/settings-1.1.0.xsd"
-	xmlns="http://maven.apache.org/SETTINGS/1.1.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-	<profiles>
-		<profile>
-			<id>github</id>
-			<repositories>
-				<repository>
-					<id>central</id>
-					<url>http://repo1.maven.org/maven2</url>
-					<releases>
-						<enabled>true</enabled>
-					</releases>
-					<snapshots>
-						<enabled>false</enabled>
-					</snapshots>
-				</repository>
+<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0
+                      http://maven.apache.org/xsd/settings-1.0.0.xsd">
 
-				<repository>
-					<id>github</id>
-					<url>https://maven.pkg.github.com/heemabhatt</url>
-					<releases>
-						<enabled>true</enabled>
-					</releases>
-					<snapshots>
-						<enabled>false</enabled>
-					</snapshots>
-				</repository>
-			</repositories>
-		</profile>
-	</profiles>
-	<servers>
-		<!-- <server> <username>admin</username> <password>Police12345678</password> 
-			<id>central</id> </server> <server> <username>admin</username> <password>Police12345678</password> 
-			<id>snapshots</id> </server> -->
-		<server>
-			<id>github</id>
-			<username>heemabhatt</username>
-			<password>Temp6day</password>
-		</server>
-	</servers>
+  <activeProfiles>
+    <activeProfile>github</activeProfile>
+  </activeProfiles>
 
+  <profiles>
+    <profile>
+      <id>github</id>
+      <repositories>
+        <repository>
+          <id>central</id>
+          <url>https://repo1.maven.org/maven2</url>
+          <releases><enabled>true</enabled></releases>
+          <snapshots><enabled>true</enabled></snapshots>
+        </repository>
+        <repository>
+          <id>github</id>
+          <name>GitHub OWNER Apache Maven Packages</name>
+          <url>https://maven.pkg.github.com/heemabhatt/api-service</url>
+        </repository>
+      </repositories>
+    </profile>
+  </profiles>
+
+  <servers>
+    <server>
+      <id>github</id>
+      <username>heemabhatt</username>
+      <password>Temp6day</password>
+    </server>
+  </servers>
 </settings>

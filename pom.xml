@@ -70,4 +70,11 @@
 			<url>http://69.250.67.37:8081/artifactory/hkbrepository</url>
 		</snapshotRepository>
 	</distributionManagement> -->
+	<distributionManagement>
+   <repository>
+     <id>github</id>
+     <name>GitHub OWNER Apache Maven Packages</name>
+     <url>https://maven.pkg.github.com/heemabhatt/api-service</url>
+   </repository>
+</distributionManagement>
 </project>

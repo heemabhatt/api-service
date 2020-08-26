@@ -23,22 +23,14 @@ jobs:
     - run: echo ${BRANCH_NAME}
     - run: echo "::set-env name=BRANCH::${BRANCH_NAME}"
       
-    - name: Generate build number
-      id: buildnumber
-      uses: einaregilsson/build-number@v2
-      with:
-        token: ${{secrets.github_token}}
-    - name: Build
-      run: mvn versions:set -DnewVersion=${{ steps.buildnumber.outputs.build_number }} && mvn clean package -s settings.xml
-    
-    - name: Display Environment Name if Dev
-      if: contains(env.BRANCH, 'Dev')
-      run: echo 'Dev Build And Deploy'
+#     - name: Generate build number
+#       id: buildnumber
+#       uses: einaregilsson/build-number@v2
+#       with:
+#         token: ${{secrets.github_token}}
+#     - name: Build
+#       run: mvn versions:set -DnewVersion=${{ steps.buildnumber.outputs.build_number }} && mvn clean package -s settings.xml
       
-    - name: Display Environment Name if Stage
-      if: contains(env.BRANCH, 'Stage')
-      run: echo 'Stage Build and Deploy'
-    
     - name: Deploy To Dev
       if: contains(env.BRANCH, 'Dev')
       run: echo 'Now Deploying to Dev'
@@ -60,15 +52,16 @@ jobs:
     - name: Process version of the tag
       id: version
       uses: ncipollo/semantic-version-action@v1
+    - name: Dump steps context
+      env:
+        STEPS_CONTEXT: ${{ toJson(steps.version.outputs) }}
+      run: echo "$STEPS_CONTEXT"
     
-    - name: echo version
-      run: echo ${{ toJson(steps.version.outputs) }}    
-    
-    - name: Build with Maven
-      run: mvn versions:set -DnewVersion=${{ steps.buildnumber.outputs.build_number }} && mvn package -Pcloud -s settings.xml 
+#     - name: Build with Maven
+#       run: mvn versions:set -DnewVersion=1.1.2 && mvn package -Pcloud -s settings.xml 
       
-    - name: Deploy package
-      run: mvn deploy -Dregistry=https://maven.pkg.github.com/heemabhatt -Dtoken=GH_TOKEN -s settings.xml
+#     - name: Deploy package
+#       run: mvn deploy -Dregistry=https://maven.pkg.github.com/heemabhatt -Dtoken=GH_TOKEN -s settings.xml
 
 #       - name: Login to Azure Spring Cloud
 #         uses: azure/login@v1

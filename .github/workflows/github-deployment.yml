@@ -51,7 +51,7 @@ jobs:
       run: mvn versions:set -DnewVersion=1.0.${{ steps.buildnumber.outputs.build_number }} && mvn package -s settings.xml
       
     - name: Deploy package
-      run: mvn deploy -s settings.xml
+      run: mvn deploy -s settings.xml -Dtoken=${{ secrets.GH_TOKEN }} -Dregistry=https://maven.pkg.github.com/heemabhatt
       env:
         GH_TOKEN: ${{ secrets.GH_TOKEN }}
       

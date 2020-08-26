@@ -48,12 +48,12 @@ jobs:
       run: echo $(jq -r '. | to_entries[] | "\(.key)=\(.value) "' src/main/resources/ConfigFiles/Configuration.${BRANCH_NAME}.json)
     
     - name: Build with Maven
-      run: mvn versions:set -DnewVersion=1.0.${{ steps.buildnumber.outputs.build_number }} && mvn package -s settings.xml
+      run: mvn versions:set -DnewVersion=1.0.${{ steps.buildnumber.outputs.build_number }} && mvn package 
       
     - name: Deploy package
       run: mvn deploy -s settings.xml
       env:
-        GH_TOKEN: fe798cb7523c66a94d01c6fe7fae18279503d0e7
+        GH_TOKEN: ${{ secrets.GH_TOKEN }}
       
 #       - name: Login to Azure Spring Cloud
 #         uses: azure/login@v1

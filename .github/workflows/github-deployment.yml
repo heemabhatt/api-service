@@ -24,14 +24,12 @@ jobs:
     - run: echo ${BRANCH_NAME}
     - run: echo "::set-env name=BRANCH::${BRANCH_NAME}"
       
-#     - name: Generate build number
-#       id: buildnumber
-#       uses: einaregilsson/build-number@v2
-#       with:
-#         token: ${{secrets.github_token}}
-#     - name: Build
-#       run: mvn versions:set -DnewVersion=${{ steps.buildnumber.outputs.build_number }} && mvn clean package -s settings.xml
-      
+    - name: Generate build number
+      id: buildnumber
+      uses: einaregilsson/build-number@v2
+      with:
+        token: ${{secrets.github_token}}
+         
     - name: Deploy To Dev
       if: contains(env.BRANCH, 'Dev')
       run: echo 'Now Deploying to Dev'
@@ -40,30 +38,20 @@ jobs:
       if: contains(env.BRANCH, 'Stage')
       run: echo 'Now Deploying to Stage'
 
-#     - name: Check if environment specific config file exists
-#       run: if [ -f "src/main/resources/ConfigFiles/Configuration.${BRANCH_NAME}.json" ]; then echo "File downloaded"; fi
+    - name: Check if environment specific config file exists
+      run: if [ -f "src/main/resources/ConfigFiles/Configuration.${BRANCH_NAME}.json" ]; then echo "File downloaded"; fi
     
-#     - name: Install jq
-#       run: sudo apt-get update -y && sudo apt-get install -y jq
+    - name: Install jq
+      run: sudo apt-get update -y && sudo apt-get install -y jq
     
-#     - name: create environment variables list using jq
-#       run: echo $(jq -r '. | to_entries[] | "\(.key)=\(.value) "' src/main/resources/ConfigFiles/Configuration.${BRANCH_NAME}.json)
-#     - name: Print Environment variables
-#       run: echo "$CUSTOM_VAR"
-    - name: Bump release version
-      id: bump_version
-      uses: christian-draeger/increment-semantic-version@1.0.2
-      with:
-       current-version: '2.11.7'
-       version-fragment: 'bug'
-    - name: Do something with your bumped release version
-      run: echo ${{ steps.bump_version.outputs.next-version }}
+    - name: create environment variables list using jq
+      run: echo $(jq -r '. | to_entries[] | "\(.key)=\(.value) "' src/main/resources/ConfigFiles/Configuration.${BRANCH_NAME}.json)
     
-#     - name: Build with Maven
-#       run: mvn versions:set -DnewVersion=1.1.2 && mvn package -Pcloud -s settings.xml 
+    - name: Build with Maven
+      run: mvn versions:set -DnewVersion=1.0.${{ steps.buildnumber.outputs.build_number }} && mvn package -s settings.xml 
       
-#     - name: Deploy package
-#       run: mvn deploy -Dregistry=https://maven.pkg.github.com/heemabhatt -Dtoken=GH_TOKEN -s settings.xml
+    - name: Deploy package
+      run: mvn deploy -Dregistry=https://maven.pkg.github.com/heemabhatt -Dtoken=GH_TOKEN -s settings.xml
 
 #       - name: Login to Azure Spring Cloud
 #         uses: azure/login@v1

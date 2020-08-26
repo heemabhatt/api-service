@@ -4,7 +4,7 @@ name: CI
 # events for the listed branches
 on:
   push:
-    branches: [Dev, Stage1, Prod]
+    branches: [Dev, Stage, Prod]
   pull_request:
     branches: [ master ]
  

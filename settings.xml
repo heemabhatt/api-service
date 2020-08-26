@@ -23,8 +23,14 @@
 				</repository>
 				<repository>
 					<id>github</id>
-					<name>GitHub OWNER Apache Maven Packages</name>
+					<name>api-service</name>
 					<url>https://maven.pkg.github.com/heemabhatt/api-service</url>
+					<releases>
+						<enabled>true</enabled>
+					</releases>
+					<snapshots>
+						<enabled>true</enabled>
+					</snapshots>
 				</repository>
 			</repositories>
 		</profile>

@@ -9,8 +9,6 @@ ASC_SERVICE_NAME=spring-cloud-demo-hkb
 function install_dependencies () {
   az extension show -n spring-cloud || az extension add -n spring-cloud
 }
-
- 
  
 # Gets the name of the deployment active in production.
 function get_active_deployment_name() {

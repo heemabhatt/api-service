@@ -57,9 +57,8 @@ function create_deployment() {
       --jar-path $ASC_JAR_PATH
   else
     INSTANCE_STATUS=$(az spring-cloud app deployment list --app api-service --query "[?name=='${NAME}'].properties.provisioningState | [0]")
-  
     echo 'Instance health status: ${INSTANCE_STATUS} '
-   if [ ${INSTANCE_STATUS} == "Succeeded"]
+   if [ ${INSTANCE_STATUS} == "Succeeded"]; then
    az spring-cloud app deploy \
     -n $ASC_APP_NAME \
     -g $ASC_RESOURCE_GROUP_NAME \

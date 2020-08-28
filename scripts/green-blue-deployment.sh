@@ -95,7 +95,7 @@ echo "target:  ${target_deployment_name}"
 #Getting count of Deploymentslots
 count_deploymentslots=$(get_count_deploymentslots)
 echo "count: ${count_deploymentslots}"
-
+echo "JAR PATH:  ${ASC_JAR_PATH}"
 # #Creating the Staging Deployment 
 # create_deployment $target_deployment_name $count_deploymentslots
 

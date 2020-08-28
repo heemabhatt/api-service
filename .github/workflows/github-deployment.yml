@@ -50,7 +50,7 @@ jobs:
 #             --jar-path ./deploydir/demo-${{ steps.buildnumber.outputs.build_number }}.jar 
 #            --env $(jq -r '. | to_entries[] | "\(.key)=\(.value) "' src/main/scripts/test_props.json)
     - name: Change Permissions
-      run: chmod 777 $GITHUB_WORKSPACE/scripts/deploy/asc-deploy.sh
+      run: chmod 777 $GITHUB_WORKSPACE/scripts/green-blue-deployment.sh
       
     - name: Run Green Blue Deployment
       run: $GITHUB_WORKSPACE/scripts/green-blue-deployment.sh

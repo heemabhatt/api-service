@@ -54,7 +54,8 @@ function create_deployment() {
       --app $ASC_APP_NAME \
       --resource-group $ASC_RESOURCE_GROUP_NAME \
       --service $ASC_SERVICE_NAME \
-      --jar-path $ASC_JAR_PATH
+      --jar-path $ASC_JAR_PATH \
+      --runtime-version Java_11
   else
     INSTANCE_STATUS=$(get_deployment_instance_status)
     echo "Instance health status: ${INSTANCE_STATUS}"
@@ -76,6 +77,7 @@ function create_deployment() {
       --resource-group $ASC_RESOURCE_GROUP_NAME \
       --service $ASC_SERVICE_NAME \
       --jar-path $ASC_JAR_PATH
+      --runtime-version Java_11
     fi
   fi
 }

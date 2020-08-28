@@ -1,6 +1,9 @@
 # Default deployment colors to blue and green.
 ASC_DEPLOYMENT_COLOR_1=${ASC_DEPLOYMENT_COLOR_1:-blue}
 ASC_DEPLOYMENT_COLOR_2=${ASC_DEPLOYMENT_COLOR_2:-default}
+ASC_APP_NAME=api-service
+ASC_RESOURCE_GROUP_NAME=rg-spring-cloud-demo-hkb
+ASC_SERVICE_NAME=spring-cloud-demo-hkb
 
 # Gets the name of the deployment active in production.
 function get_active_deployment_name() {
@@ -65,18 +68,21 @@ function set_deployment() {
     --service $ASC_SERVICE_NAME
 }
 
-#  #Getting the Production/Active Deployment Name
-# active_deployment_name=$(get_active_deployment_name)
+ #Getting the Production/Active Deployment Name
+active_deployment_name=$(get_active_deployment_name)
+echo $active_deployment_name
 
 
-# #setting the Staging/InActive Deployment Name
-# target_deployment_name=$(get_new_deployment_name $active_deployment_name)
+#setting the Staging/InActive Deployment Name
+target_deployment_name=$(get_new_deployment_name $active_deployment_name)
+echo $target_deployment_name
 
 # #delete_deployment $target_deployment_name
 
 
-# #Getting count of Deploymentslots
-# count_deploymentslots=$(get_count_deploymentslots)
+#Getting count of Deploymentslots
+count_deploymentslots=$(get_count_deploymentslots)
+echo $count_deploymentslots
 
 # #Creating the Staging Deployment 
 # create_deployment $target_deployment_name $count_deploymentslots

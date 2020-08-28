@@ -7,7 +7,7 @@ ASC_SERVICE_NAME=spring-cloud-demo-hkb
 
 # Installs the spring-cloud extension if not available.
 function install_dependencies () {
-  az extension show -n spring-cloud || az extension add -n spring-cloud
+ az extension add -n spring-cloud
 }
  
 # Gets the name of the deployment active in production.
@@ -56,7 +56,7 @@ function create_deployment() {
       --service $ASC_SERVICE_NAME \
       --jar-path $ASC_JAR_PATH
   else
-    INSTANCE_STATUS=$(az spring-cloud app deployment list --app $ASC_APP_NAME --resource-group $ASC_RESOURCE_GROUP_NAME --service $ASC_SERVICE_NAME --query "[?name=='${NAME}'].properties.provisioningState | [0]")
+    INSTANCE_STATUS=$(get_deployment_instance_status)
     echo "Instance health status: ${INSTANCE_STATUS}"
     
    if [ "$INSTANCE_STATUS" == \""Succeeded\"" ]; then
@@ -70,6 +70,16 @@ function create_deployment() {
     echo 'instance status down'
     fi
   fi
+}
+
+# Get instance status
+function get_deployment_instance_status()
+{
+az spring-cloud app deployment list \
+  --app $ASC_APP_NAME \
+  --resource-group $ASC_RESOURCE_GROUP_NAME \
+  --service $ASC_SERVICE_NAME \
+  --query "[?name=='${NAME}'].properties.provisioningState | [0]"
 }
 
 # Set a deployment.

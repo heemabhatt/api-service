@@ -20,15 +20,7 @@ jobs:
       with:
         java-version: 1.11
         
-    - name: Check if environment specific config file exists
-      run: if [ -f "src/main/resources/ConfigFiles/Configuration.${BRANCH_NAME}.json" ]; then echo "File downloaded"; fi
-    
-    - name: Install jq
-      run: sudo apt-get update -y && sudo apt-get install -y jq
-    
-    - name: create environment variables list using jq
-      run: echo $(jq -r '. | to_entries[] | "\(.key)=\(.value) "' src/main/resources/ConfigFiles/Configuration.${BRANCH_NAME}.json)
-    
+ 
     - name: Generate build number
       id: buildnumber
       uses: einaregilsson/build-number@v2
@@ -54,11 +46,19 @@ jobs:
       with:
          creds: ${{ secrets.AZURE_CREDENTIALS }}
          
-#       - name: Delete app
-#         run: az spring-cloud app delete -n api-service --resource-group rg-spring-cloud-demo-hkb --service spring-cloud-demo-hkb
-#       - name: Create app
-#         run: az spring-cloud app create -n api-service --runtime-version Java_11 --resource-group rg-spring-cloud-demo-hkb --service spring-cloud-demo-hkb
-
+    - name: Delete app
+      run: az spring-cloud app delete -n api-service --resource-group rg-spring-cloud-demo-hkb --service spring-cloud-demo-hkb
+    - name: Create app
+      run: az spring-cloud app create -n api-service --runtime-version Java_11 --resource-group rg-spring-cloud-demo-hkb --service spring-cloud-demo-hkb
+    - name: Check if environment specific config file exists
+      run: if [ -f "src/main/resources/ConfigFiles/Configuration.${BRANCH_NAME}.json" ]; then echo "File downloaded"; fi
+    
+    - name: Install jq
+      run: sudo apt-get update -y && sudo apt-get install -y jq
+    
+    - name: create environment variables list using jq
+      run: echo $(jq -r '. | to_entries[] | "\(.key)=\(.value) "' src/main/resources/ConfigFiles/Configuration.${BRANCH_NAME}.json)
+   
 #       - name: Deploy to Azure Spring Cloud
 #         run: |
 #             az spring-cloud app deploy --resource-group rg-spring-cloud-demo-hkb --service spring-cloud-demo-hkb --name api-service \

@@ -70,25 +70,25 @@ function set_deployment() {
 
 
 
-echo 'color1: $ASC_DEPLOYMENT_COLOR_1'
-echo 'color2: $ASC_DEPLOYMENT_COLOR_2'
+echo 'color1: ${ASC_DEPLOYMENT_COLOR_1}'
+echo 'color2: ${ASC_DEPLOYMENT_COLOR_2}'
 
 
  #Getting the Production/Active Deployment Name
 active_deployment_name=$(get_active_deployment_name)
-echo 'Active Deployment:  $active_deployment_name'
+echo 'Active Deployment:  ${active_deployment_name}'
 
 
 #setting the Staging/InActive Deployment Name
 target_deployment_name=$(get_new_deployment_name $active_deployment_name)
-echo 'target:  $target_deployment_name'
+echo 'target:  ${target_deployment_name}'
 
 # #delete_deployment $target_deployment_name
 
 
 #Getting count of Deploymentslots
 count_deploymentslots=$(get_count_deploymentslots)
-echo 'count: $count_deploymentslots'
+echo 'count: ${count_deploymentslots}'
 
 # #Creating the Staging Deployment 
 # create_deployment $target_deployment_name $count_deploymentslots

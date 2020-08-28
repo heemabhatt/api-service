@@ -33,11 +33,13 @@ function delete_deployment() {
 }
 
 function get_count_deploymentslots() {
-  az spring-cloud app deployment list \
+  count=$(az spring-cloud app deployment list \
     --app $ASC_APP_NAME \
     --resource-group $ASC_RESOURCE_GROUP_NAME \
     --service $ASC_SERVICE_NAME \
-    --query 'length(@)'
+    --query 'length(@)')\
+   &&
+   echo $count
 }
 
 # Creates a deployment.

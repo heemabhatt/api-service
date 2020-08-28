@@ -39,7 +39,9 @@ jobs:
       run: mvn versions:set -DnewVersion=1.0.${{ steps.buildnumber.outputs.build_number }} && mvn package -s settings.xml
     
     - name: set environment variables
-      run: echo ::set-env name=ASC_JAR_PATH::target/demo-1.0.${{ steps.buildnumber.outputs.build_number }}.jar
+      run: |
+         export: ASC_JAR_PATH=target/demo-1.0.${{ steps.buildnumber.outputs.build_number }}.jar
+         echo "::set-env name=ASC_JAR_PATH::$ASC_JAR_PATH"
       
     - name: show jar path 
     - run: echo $ASC_JAR_PATH

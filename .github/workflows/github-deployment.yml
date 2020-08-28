@@ -40,11 +40,11 @@ jobs:
     
     - name: set environment variables
       run: |
-         export: ASC_JAR_PATH=target/demo-1.0.${{ steps.buildnumber.outputs.build_number }}.jar
-         echo "::set-env name=ASC_JAR_PATH::$ASC_JAR_PATH"
+        export ASC_JAR_PATH=target/demo-1.0.${{ steps.buildnumber.outputs.build_number }}.jar
+        echo "::set-env name=ASC_JAR_PATH::$ASC_JAR_PATH"
       
     - name: show jar path 
-    - run: echo $ASC_JAR_PATH
+      run: echo $ASC_JAR_PATH
       
     - name: Check if jar generated correctly  
       run:  if [ -f "target/demo-1.0.${{ steps.buildnumber.outputs.build_number }}.jar" ]; then echo "File Exists"; fi

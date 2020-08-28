@@ -48,10 +48,10 @@ jobs:
     - name: install extension
       run: az extension add -n spring-cloud
     
-    - name: Delete app
-      run: az spring-cloud app delete -n api-service --resource-group rg-spring-cloud-demo-hkb --service spring-cloud-demo-hkb
-    - name: Create app
-      run: az spring-cloud app create -n api-service --runtime-version Java_11 --resource-group rg-spring-cloud-demo-hkb --service spring-cloud-demo-hkb
+#     - name: Delete app
+#       run: az spring-cloud app delete -n api-service --resource-group rg-spring-cloud-demo-hkb --service spring-cloud-demo-hkb
+#     - name: Create app
+#       run: az spring-cloud app create -n api-service --runtime-version Java_11 --resource-group rg-spring-cloud-demo-hkb --service spring-cloud-demo-hkb
     - name: Check if environment specific config file exists
       run: if [ -f "src/main/resources/ConfigFiles/Configuration.${BRANCH_NAME}.json" ]; then echo "File downloaded"; fi
     

@@ -37,7 +37,7 @@ function get_count_deploymentslots() {
     --app $ASC_APP_NAME \
     --resource-group $ASC_RESOURCE_GROUP_NAME \
     --service $ASC_SERVICE_NAME \
-    --query 'length(@)')\
+    --query 'length(@)')
 }
 
 # Creates a deployment.
@@ -68,8 +68,6 @@ function set_deployment() {
     --service $ASC_SERVICE_NAME
 }
 
-
-
 echo "color1: ${ASC_DEPLOYMENT_COLOR_1}"
 echo "color2: ${ASC_DEPLOYMENT_COLOR_2}"
 
@@ -93,7 +91,5 @@ echo "count: ${count_deploymentslots}"
 # #Creating the Staging Deployment 
 # create_deployment $target_deployment_name $count_deploymentslots
 
-
 # # TODO: Add health check step and Post Approval to SWAP the slot
 # set_deployment $target_deployment_name
-

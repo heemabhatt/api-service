@@ -49,6 +49,7 @@ function get_count_deploymentslots() {
 function create_deployment() {  
 
   if [  $1 == $ASC_DEPLOYMENT_COLOR_1 ] && [ $2 == 1 ]; then
+   delete_deployment $1  # DELETE THIS LINE
     az spring-cloud app deployment create \
       --name $1 \
       --app $ASC_APP_NAME \
@@ -67,6 +68,7 @@ function create_deployment() {
     -s $ASC_SERVICE_NAME \
     -d $1 \
     --jar-path $ASC_JAR_PATH
+     --runtime-version Java_11
     else
     echo 'instance status down' 
     delete_deployment $target_deployment_name

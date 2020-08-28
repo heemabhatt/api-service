@@ -70,7 +70,7 @@ function set_deployment() {
 
 
 
-echo 'color1: ${ASC_DEPLOYMENT_COLOR_1}'
+echo "color1: ${ASC_DEPLOYMENT_COLOR_1}"
 echo 'color2: ${ASC_DEPLOYMENT_COLOR_2}'
 
 

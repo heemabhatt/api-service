@@ -4,7 +4,7 @@ name: CI
 # events for the listed branches
 on:
   push:
-    branches: [Dev, Stage, Prod]
+    branches: [Dev, Stage1, Prod]
   pull_request:
     branches: [ master ]
 
@@ -52,12 +52,11 @@ jobs:
 
     - name: Check if jar generated correctly  
       run:  if [ -f "target/demo-1.0.${{ steps.buildnumber.outputs.build_number }}.jar" ]; then echo "File Exists"; fi
-#       - name: Login to Azure Spring Cloud
-#         uses: azure/login@v1
-#         with:
-#          creds: ${{ secrets.AZURE_CREDENTIALS }}
-#       - name: Install Azure Spring Cloud extension
-#         run: az extension add -y --name spring-cloud
+    - name: Login to Azure Spring Cloud
+      uses: azure/login@v1
+      with:
+         creds: ${{ secrets.AZURE_CREDENTIALS }}
+         
 #       - name: Delete app
 #         run: az spring-cloud app delete -n api-service --resource-group rg-spring-cloud-demo-hkb --service spring-cloud-demo-hkb
 #       - name: Create app

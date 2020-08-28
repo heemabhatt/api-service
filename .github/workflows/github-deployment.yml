@@ -39,9 +39,13 @@ jobs:
       run: mvn versions:set -DnewVersion=1.0.${{ steps.buildnumber.outputs.build_number }} && mvn package -s settings.xml
       env:
         ASC_JAR_PATH=target/demo-1.0.${{ steps.buildnumber.outputs.build_number }}.jar
-        
-    - name: echo jar path
-      run: echo $ASC_JAR_PATH
+    
+    - name: set environment variables
+      uses: allenevans/set-env@v1.0.0
+      with:
+          overwrite: false
+           ASC_JAR_PATH='target/demo-1.0.${{ steps.buildnumber.outputs.build_number }}.jar'    
+    - run: echo $ASC_JAR_PATH
       
     - name: Check if jar generated correctly  
       run:  if [ -f "target/demo-1.0.${{ steps.buildnumber.outputs.build_number }}.jar" ]; then echo "File Exists"; fi

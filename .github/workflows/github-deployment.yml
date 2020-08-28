@@ -45,7 +45,9 @@ jobs:
       uses: azure/login@v1
       with:
          creds: ${{ secrets.AZURE_CREDENTIALS }}
-         
+    - name: install extension
+      run: az extension add -n spring-cloud
+    
     - name: Delete app
       run: az spring-cloud app delete -n api-service --resource-group rg-spring-cloud-demo-hkb --service spring-cloud-demo-hkb
     - name: Create app

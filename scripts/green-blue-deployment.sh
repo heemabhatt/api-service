@@ -7,7 +7,7 @@ ASC_SERVICE_NAME=spring-cloud-demo-hkb
 
 # Gets the name of the deployment active in production.
 function get_active_deployment_name() {
-H1=hello
+H1=$(az spring-cloud app deployment list --app $ASC_APP_NAME --resource-group $ASC_RESOURCE_GROUP_NAME --service $ASC_SERVICE_NAME --query "[?properties.active].name | [0]")
 echo $H1
 #  var1=$(az spring-cloud app deployment list \
 #     --app $ASC_APP_NAME \

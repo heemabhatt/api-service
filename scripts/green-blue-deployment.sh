@@ -37,7 +37,7 @@ function get_count_deploymentslots() {
     --app $ASC_APP_NAME \
     --resource-group $ASC_RESOURCE_GROUP_NAME \
     --service $ASC_SERVICE_NAME \
-    --query "length(@)" -o json
+    --query 'length(@)'
 }
 
 # Creates a deployment.

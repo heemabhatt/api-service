@@ -49,20 +49,23 @@ function get_count_deploymentslots() {
 
 # Creates a deployment.
 function create_deployment() {  
+ echo $2
   if [ "$1" == "\"$ASC_DEPLOYMENT_COLOR_1\"" ] && [ $2 == 1 ]; then
-    az spring-cloud app deployment create \
-      --name $1 \
-      --app $ASC_APP_NAME \
-      --resource-group $ASC_RESOURCE_GROUP_NAME \
-      --service $ASC_SERVICE_NAME \
-      --jar-path $ASC_JAR_PATH
+  echo 'if executed'
+#     az spring-cloud app deployment create \
+#       --name $1 \
+#       --app $ASC_APP_NAME \
+#       --resource-group $ASC_RESOURCE_GROUP_NAME \
+#       --service $ASC_SERVICE_NAME \
+#       --jar-path $ASC_JAR_PATH
   else
-    az spring-cloud app deploy \
-    -n $ASC_APP_NAME \
-    -g $ASC_RESOURCE_GROUP_NAME \
-    -s $ASC_SERVICE_NAME \
-    -d $1 \
-    --jar-path $ASC_JAR_PATH
+  echo 'else executed'
+#     az spring-cloud app deploy \
+#     -n $ASC_APP_NAME \
+#     -g $ASC_RESOURCE_GROUP_NAME \
+#     -s $ASC_SERVICE_NAME \
+#     -d $1 \
+#     --jar-path $ASC_JAR_PATH
   fi
 }
 

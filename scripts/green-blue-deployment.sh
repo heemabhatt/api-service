@@ -14,15 +14,11 @@ function install_dependencies () {
  
 # Gets the name of the deployment active in production.
 function get_active_deployment_name() {
-H1=$(az spring-cloud app deployment list --app $ASC_APP_NAME --resource-group $ASC_RESOURCE_GROUP_NAME --service $ASC_SERVICE_NAME --query "[?properties.active].name | [0]")
-echo $H1
-#  var1=$(az spring-cloud app deployment list \
-#     --app $ASC_APP_NAME \
-#     --resource-group $ASC_RESOURCE_GROUP_NAME \
-#     --service $ASC_SERVICE_NAME \
-#     --query "[?properties.active].name | [0]")
-    
-#  echo $var1
+az spring-cloud app deployment list \
+    --app $ASC_APP_NAME \
+    --resource-group $ASC_RESOURCE_GROUP_NAME \
+    --service $ASC_SERVICE_NAME \
+    --query "[?properties.active].name | [0]"
 }
 
 # Alternates between the two defined deployment colors.
@@ -44,11 +40,11 @@ function delete_deployment() {
 }
 
 function get_count_deploymentslots() {
-  echo $(az spring-cloud app deployment list \
+  az spring-cloud app deployment list \
     --app $ASC_APP_NAME \
     --resource-group $ASC_RESOURCE_GROUP_NAME \
     --service $ASC_SERVICE_NAME \
-    --query 'length(@)')
+    --query 'length(@)'
 }
 
 # Creates a deployment.
@@ -83,7 +79,6 @@ function set_deployment() {
  
 echo "color1: ${ASC_DEPLOYMENT_COLOR_1}"
 echo "color2: ${ASC_DEPLOYMENT_COLOR_2}"
-echo $(az spring-cloud app deployment list --app $ASC_APP_NAME --resource-group $ASC_RESOURCE_GROUP_NAME --service $ASC_SERVICE_NAME --query "[?properties.active].name | [0]")
 
  #Getting the Production/Active Deployment Name
 active_deployment_name=$(get_active_deployment_name)

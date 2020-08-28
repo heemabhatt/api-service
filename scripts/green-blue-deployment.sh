@@ -7,11 +7,11 @@ ASC_SERVICE_NAME=spring-cloud-demo-hkb
 
 # Gets the name of the deployment active in production.
 function get_active_deployment_name() {
-  az spring-cloud app deployment list \
+ echo $(az spring-cloud app deployment list \
     --app $ASC_APP_NAME \
     --resource-group $ASC_RESOURCE_GROUP_NAME \
     --service $ASC_SERVICE_NAME \
-    --query "[?properties.active].name | [0]"
+    --query "[?properties.active].name | [0]")
 }
 
 # Alternates between the two defined deployment colors.
@@ -33,13 +33,11 @@ function delete_deployment() {
 }
 
 function get_count_deploymentslots() {
-  count=$(az spring-cloud app deployment list \
+  echo $(az spring-cloud app deployment list \
     --app $ASC_APP_NAME \
     --resource-group $ASC_RESOURCE_GROUP_NAME \
     --service $ASC_SERVICE_NAME \
     --query 'length(@)')\
-   &&
-   echo $count
 }
 
 # Creates a deployment.

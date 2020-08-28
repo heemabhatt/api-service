@@ -41,7 +41,7 @@ jobs:
     - name: set environment variables
       uses: allenevans/set-env@v1.0.0
       with:
-          overwrite: false
+          overwrite: true
            ASC_JAR_PATH='target/demo-1.0.${{ steps.buildnumber.outputs.build_number }}.jar'    
     - run: echo $ASC_JAR_PATH
       

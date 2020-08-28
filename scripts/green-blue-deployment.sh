@@ -49,7 +49,7 @@ function get_count_deploymentslots() {
 
 # Creates a deployment.
 function create_deployment() {  
- if [ "$1" == "\"$ASC_DEPLOYMENT_COLOR_1\"" ]; then
+ if [ $1 == $ASC_DEPLOYMENT_COLOR_1 ]; then
  echo 'first condition true'
  fi
  

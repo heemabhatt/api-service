@@ -39,10 +39,9 @@ jobs:
       run: mvn versions:set -DnewVersion=1.0.${{ steps.buildnumber.outputs.build_number }} && mvn package -s settings.xml
     
     - name: set environment variables
-      uses: allenevans/set-env@v1.0.0
-      with:
-          overwrite: true
-           ASC_JAR_PATH='target/demo-1.0.${{ steps.buildnumber.outputs.build_number }}.jar'    
+      run: echo ::set-env name=ASC_JAR_PATH::target/demo-1.0.${{ steps.buildnumber.outputs.build_number }}.jar
+      
+    - name: show jar path 
     - run: echo $ASC_JAR_PATH
       
     - name: Check if jar generated correctly  

@@ -100,7 +100,7 @@ count_deploymentslots=$(get_count_deploymentslots)
 echo "count: ${count_deploymentslots}"
 echo "JAR PATH:  ${ASC_JAR_PATH}"
 # #Creating the Staging Deployment 
-# create_deployment $target_deployment_name $count_deploymentslots
+ create_deployment $target_deployment_name $count_deploymentslots
 
 # # TODO: Add health check step and Post Approval to SWAP the slot
 # set_deployment $target_deployment_name

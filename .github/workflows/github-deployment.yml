@@ -29,6 +29,12 @@ jobs:
     - name: create environment variables list using jq
       run: echo $(jq -r '. | to_entries[] | "\(.key)=\(.value) "' src/main/resources/ConfigFiles/Configuration.${BRANCH_NAME}.json)
     
+    - name: Generate build number
+      id: buildnumber
+      uses: einaregilsson/build-number@v2
+      with:
+        token: ${{secrets.github_token}}  
+    
     - name: Build with Maven
       run: mvn versions:set -DnewVersion=1.0.${{ steps.buildnumber.outputs.build_number }} && mvn package -s settings.xml
       env:

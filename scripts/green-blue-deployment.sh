@@ -58,7 +58,7 @@ function create_deployment() {
  fi
  
  
-  if [ "$1" == "\"$ASC_DEPLOYMENT_COLOR_1\"" ] && [ $2 == 1 ]; then
+  if [  $1 == $ASC_DEPLOYMENT_COLOR_1 ] && [ $2 == 1 ]; then
   echo 'if executed'
 #     az spring-cloud app deployment create \
 #       --name $1 \

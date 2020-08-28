@@ -79,7 +79,7 @@ function create_deployment() {
       --resource-group $ASC_RESOURCE_GROUP_NAME \
       --service $ASC_SERVICE_NAME \
       --jar-path $ASC_JAR_PATH
-    --runtime-version Java_11 # USE  ONLY IF VERISON IS NOT 8
+    
     fi
   fi
 }

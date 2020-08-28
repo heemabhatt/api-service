@@ -49,8 +49,15 @@ function get_count_deploymentslots() {
 
 # Creates a deployment.
 function create_deployment() {  
- echo $( if "${2}" == "1" )
- echo $( if "$1" == "\"$ASC_DEPLOYMENT_COLOR_1\"" )
+ if [ "$1" == "\"$ASC_DEPLOYMENT_COLOR_1\"" ]; then
+ echo 'first condition true'
+ fi
+ 
+ if [ $2 == 1 ]; then
+ echo 'second condition tru'
+ fi
+ 
+ 
   if [ "$1" == "\"$ASC_DEPLOYMENT_COLOR_1\"" ] && [ $2 == 1 ]; then
   echo 'if executed'
 #     az spring-cloud app deployment create \

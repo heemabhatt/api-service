@@ -33,6 +33,7 @@ function delete_deployment() {
 }
 
 function get_count_deploymentslots() {
+echo 'calling get count' &&
   az spring-cloud app deployment list \
     --app $ASC_APP_NAME \
     --resource-group $ASC_RESOURCE_GROUP_NAME \

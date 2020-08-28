@@ -67,7 +67,15 @@ function create_deployment() {
     -d $1 \
     --jar-path $ASC_JAR_PATH
     else
-    echo 'instance status down'
+    echo 'instance status down' 
+    delete_deployment $target_deployment_name
+    
+    az spring-cloud app deployment create \
+      --name $target_deployment_name \
+      --app $ASC_APP_NAME \
+      --resource-group $ASC_RESOURCE_GROUP_NAME \
+      --service $ASC_SERVICE_NAME \
+      --jar-path $ASC_JAR_PATH
     fi
   fi
 }

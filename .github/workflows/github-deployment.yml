@@ -37,8 +37,6 @@ jobs:
     
     - name: Build with Maven
       run: mvn versions:set -DnewVersion=1.0.${{ steps.buildnumber.outputs.build_number }} && mvn package -s settings.xml
-      env:
-        ASC_JAR_PATH=target/demo-1.0.${{ steps.buildnumber.outputs.build_number }}.jar
     
     - name: set environment variables
       uses: allenevans/set-env@v1.0.0

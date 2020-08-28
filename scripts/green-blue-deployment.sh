@@ -79,7 +79,7 @@ az spring-cloud app deployment list \
   --app $ASC_APP_NAME \
   --resource-group $ASC_RESOURCE_GROUP_NAME \
   --service $ASC_SERVICE_NAME \
-  --query "[?name=='${NAME}'].properties.provisioningState | [0]"
+  --query "[?name=='${target_deployment_name}'].properties.provisioningState | [0]"
 }
 
 # Set a deployment.

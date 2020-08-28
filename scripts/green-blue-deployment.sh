@@ -5,6 +5,13 @@ ASC_APP_NAME=api-service
 ASC_RESOURCE_GROUP_NAME=rg-spring-cloud-demo-hkb
 ASC_SERVICE_NAME=spring-cloud-demo-hkb
 
+# Installs the spring-cloud extension if not available.
+function install_dependencies () {
+  az extension show -n spring-cloud || az extension add -n spring-cloud
+}
+
+ 
+ 
 # Gets the name of the deployment active in production.
 function get_active_deployment_name() {
 H1=$(az spring-cloud app deployment list --app $ASC_APP_NAME --resource-group $ASC_RESOURCE_GROUP_NAME --service $ASC_SERVICE_NAME --query "[?properties.active].name | [0]")
@@ -71,7 +78,9 @@ function set_deployment() {
     --resource-group $ASC_RESOURCE_GROUP_NAME \
     --service $ASC_SERVICE_NAME
 }
-
+#Installing Dependencies
+ install_dependencies
+ 
 echo "color1: ${ASC_DEPLOYMENT_COLOR_1}"
 echo "color2: ${ASC_DEPLOYMENT_COLOR_2}"
 echo $(az spring-cloud app deployment list --app $ASC_APP_NAME --resource-group $ASC_RESOURCE_GROUP_NAME --service $ASC_SERVICE_NAME --query "[?properties.active].name | [0]")

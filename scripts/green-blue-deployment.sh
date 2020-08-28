@@ -106,7 +106,7 @@ target_deployment_name=$(get_new_deployment_name $active_deployment_name)
 echo "target:  ${target_deployment_name}"
 
 # #delete_deployment $target_deployment_name
-
+echo "DEPLOYMNET STATUS: $(get_deployment_instance_status) "
 
 #Getting count of Deploymentslots
 count_deploymentslots=$(get_count_deploymentslots)

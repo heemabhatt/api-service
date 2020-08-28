@@ -47,17 +47,17 @@ function get_count_deploymentslots() {
 
 # Creates a deployment.
 function create_deployment() {  
-
+# Only default deployment exists, so create new deployment
   if [  $1 == $ASC_DEPLOYMENT_COLOR_1 ] && [ $2 == 1 ]; then
-   delete_deployment $1  # DELETE THIS LINE
+   delete_deployment $1  # USE THIS ONLY IF DEFAULT DEPLOYMNET HUNG
     az spring-cloud app deployment create \
       --name $1 \
       --app $ASC_APP_NAME \
       --resource-group $ASC_RESOURCE_GROUP_NAME \
       --service $ASC_SERVICE_NAME \
       --jar-path $ASC_JAR_PATH \
-      --runtime-version Java_11
-  else
+     --runtime-version Java_11  # USE THIS ONLY IF VERSION IS NOT 8
+  else # If target instance is not in up and running state, delete and re-create it
     INSTANCE_STATUS=$(get_deployment_instance_status)
     echo "Instance health status: ${INSTANCE_STATUS}"
     
@@ -68,9 +68,9 @@ function create_deployment() {
     -s $ASC_SERVICE_NAME \
     -d $1 \
     --jar-path $ASC_JAR_PATH
-     --runtime-version Java_11
+    --runtime-version Java_11 # USE  ONLY IF VERISON IS NOT 8
     else
-    echo 'instance status down' 
+    echo 'instance status down, deleting and re-creating instance' 
     delete_deployment $target_deployment_name
     
     az spring-cloud app deployment create \
@@ -79,7 +79,7 @@ function create_deployment() {
       --resource-group $ASC_RESOURCE_GROUP_NAME \
       --service $ASC_SERVICE_NAME \
       --jar-path $ASC_JAR_PATH
-      --runtime-version Java_11
+    --runtime-version Java_11 # USE  ONLY IF VERISON IS NOT 8
     fi
   fi
 }
@@ -102,30 +102,24 @@ function set_deployment() {
     --resource-group $ASC_RESOURCE_GROUP_NAME \
     --service $ASC_SERVICE_NAME
 }
+
 #Installing Dependencies
  install_dependencies
  
-echo "color1: ${ASC_DEPLOYMENT_COLOR_1}"
-echo "color2: ${ASC_DEPLOYMENT_COLOR_2}"
-
- #Getting the Production/Active Deployment Name
+#Getting the Production/Active Deployment Name
 active_deployment_name=$(get_active_deployment_name)
 echo "Active Deployment:  ${active_deployment_name}"
 
-
 #setting the Staging/InActive Deployment Name
 target_deployment_name=$(get_new_deployment_name $active_deployment_name)
-echo "target:  ${target_deployment_name}"
-
-# #delete_deployment $target_deployment_name
-echo "DEPLOYMNET STATUS: $(get_deployment_instance_status) "
+echo "Target Deployment:  ${target_deployment_name}"
 
 #Getting count of Deploymentslots
 count_deploymentslots=$(get_count_deploymentslots)
-echo "count: ${count_deploymentslots}"
-echo "JAR PATH:  ${ASC_JAR_PATH}"
-# #Creating the Staging Deployment 
- create_deployment $target_deployment_name $count_deploymentslots
+echo "Deployment Count: ${count_deploymentslots}"
 
-# # TODO: Add health check step and Post Approval to SWAP the slot
+#Creating the Staging Deployment 
+create_deployment $target_deployment_name $count_deploymentslots
+
+# TODO: Add health check step and Post Approval to SWAP the slot
 # set_deployment $target_deployment_name

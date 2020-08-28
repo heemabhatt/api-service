@@ -74,7 +74,7 @@ function set_deployment() {
 
 echo "color1: ${ASC_DEPLOYMENT_COLOR_1}"
 echo "color2: ${ASC_DEPLOYMENT_COLOR_2}"
-
+echo $(az spring-cloud app deployment list --app $ASC_APP_NAME --resource-group $ASC_RESOURCE_GROUP_NAME --service $ASC_SERVICE_NAME --query "[?properties.active].name | [0]")
 
  #Getting the Production/Active Deployment Name
 active_deployment_name=$(get_active_deployment_name)

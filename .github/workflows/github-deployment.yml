@@ -4,9 +4,9 @@ name: CI
 # events for the listed branches
 on:
   push:
-    branches: [Dev, Stage1, Prod]
+    branches: [ Stage]
   pull_request:
-    branches: [ master ]
+    branches: [ master1 ]
 
  
 jobs:
@@ -20,38 +20,20 @@ jobs:
       with:
         java-version: 1.11
         
-    - uses: nelonoel/branch-name@v1
-    - run: echo ${BRANCH_NAME}
-    - run: echo "::set-env name=BRANCH::${BRANCH_NAME}"
-      
-    - name: Generate build number
-      id: buildnumber
-      uses: einaregilsson/build-number@v2
-      with:
-        token: ${{secrets.github_token}}
-         
-    - name: Deploy To Dev
-      if: contains(env.BRANCH, 'Dev')
-      run: echo 'Now Deploying to Dev'
-              
-    - name: Deploy To Stage
-      if: contains(env.BRANCH, 'Stage')
-      run: echo 'Now Deploying to Stage'
+#     - name: Check if environment specific config file exists
+#       run: if [ -f "src/main/resources/ConfigFiles/Configuration.${BRANCH_NAME}.json" ]; then echo "File downloaded"; fi
+    
+#     - name: Install jq
+#       run: sudo apt-get update -y && sudo apt-get install -y jq
+    
+#     - name: create environment variables list using jq
+#       run: echo $(jq -r '. | to_entries[] | "\(.key)=\(.value) "' src/main/resources/ConfigFiles/Configuration.${BRANCH_NAME}.json)
+    
+#     - name: Build with Maven
+#       run: mvn versions:set -DnewVersion=1.0.${{ steps.buildnumber.outputs.build_number }} && mvn package -s settings.xml
 
-    - name: Check if environment specific config file exists
-      run: if [ -f "src/main/resources/ConfigFiles/Configuration.${BRANCH_NAME}.json" ]; then echo "File downloaded"; fi
-    
-    - name: Install jq
-      run: sudo apt-get update -y && sudo apt-get install -y jq
-    
-    - name: create environment variables list using jq
-      run: echo $(jq -r '. | to_entries[] | "\(.key)=\(.value) "' src/main/resources/ConfigFiles/Configuration.${BRANCH_NAME}.json)
-    
-    - name: Build with Maven
-      run: mvn versions:set -DnewVersion=1.0.${{ steps.buildnumber.outputs.build_number }} && mvn package -s settings.xml
-
-    - name: Check if jar generated correctly  
-      run:  if [ -f "target/demo-1.0.${{ steps.buildnumber.outputs.build_number }}.jar" ]; then echo "File Exists"; fi
+#     - name: Check if jar generated correctly  
+#       run:  if [ -f "target/demo-1.0.${{ steps.buildnumber.outputs.build_number }}.jar" ]; then echo "File Exists"; fi
     - name: Login to Azure Spring Cloud
       uses: azure/login@v1
       with:
@@ -67,12 +49,19 @@ jobs:
 #             az spring-cloud app deploy --resource-group rg-spring-cloud-demo-hkb --service spring-cloud-demo-hkb --name api-service \
 #             --jar-path ./deploydir/demo-${{ steps.buildnumber.outputs.build_number }}.jar 
 #            --env $(jq -r '. | to_entries[] | "\(.key)=\(.value) "' src/main/scripts/test_props.json)
-  release-on-push:
-    runs-on: ubuntu-latest
-    needs: [build]
-    env:
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    steps:
-      - uses: rymndhng/release-on-push-action@master
-        with:
-          bump_version_scheme: minor
+    - name: Change Permissions
+      run: chmod 777 $GITHUB_WORKSPACE/scripts/deploy/asc-deploy.sh
+      
+    - name: Run Green Blue Deployment
+      run: $GITHUB_WORKSPACE/scripts/green-blue-deployment.sh
+
+
+#   release-on-push:
+#     runs-on: ubuntu-latest
+#     needs: [build]
+#     env:
+#       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#     steps:
+#       - uses: rymndhng/release-on-push-action@master
+#         with:
+#           bump_version_scheme: minor
